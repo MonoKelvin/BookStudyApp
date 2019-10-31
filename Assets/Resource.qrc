@@ -1,0 +1,28 @@
+<RCC>
+    <qresource prefix="/Icons">
+        <file>DefaultIcons/book_garden.png</file>
+        <file>DefaultIcons/book_shelf.png</file>
+        <file>DefaultIcons/check_circle.png</file>
+        <file>DefaultIcons/checked.png</file>
+        <file>DefaultIcons/checked_circle.png</file>
+        <file>DefaultIcons/close_window.png</file>
+        <file>DefaultIcons/collection.png</file>
+        <file>DefaultIcons/delete.png</file>
+        <file>DefaultIcons/edit.png</file>
+        <file>DefaultIcons/max_window.png</file>
+        <file>DefaultIcons/min_window.png</file>
+        <file>DefaultIcons/notification.png</file>
+        <file>DefaultIcons/read.png</file>
+        <file>DefaultIcons/restore_window.png</file>
+        <file>DefaultIcons/search.png</file>
+        <file>DefaultIcons/search_active.png</file>
+        <file>DefaultIcons/setting.png</file>
+        <file>DefaultIcons/sort.png</file>
+        <file>DefaultIcons/unchecked.png</file>
+        <file>DefaultIcons/user.png</file>
+        <file>AppIcons/AppLogo.png</file>
+        <file>AppIcons/BookStudy.png</file>
+        <file>AppIcons/default_avator.png</file>
+        <file>DefaultIcons/refresh.png</file>
+    </qresource>
+</RCC>
