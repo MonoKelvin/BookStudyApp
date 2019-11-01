@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/Icons/AppIcons">
+    <qresource prefix="/Icons">
         <file>DefaultIcons/book_garden.png</file>
         <file>DefaultIcons/book_shelf.png</file>
         <file>DefaultIcons/check_circle.png</file>

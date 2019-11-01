@@ -24,7 +24,7 @@ private:
 
 private slots:
     void setUserBaseInfo(void);
-    void getCategories(void);
+//    void getCategories(void);
 
 private:
     Ui::MainWindow *ui;
@@ -33,12 +33,6 @@ private:
 
     // 从登录页面传递过来的用户信息
     UserModel *mUser;
-
-//    HttpRequest *mLogoutRequest;
-
-    // QWidget interface
-protected:
-    void closeEvent(QCloseEvent *event) override;
 };
 
 #endif // MAINWINDOW_H

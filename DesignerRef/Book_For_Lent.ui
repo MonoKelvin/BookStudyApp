@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>480</width>
+    <height>180</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>480</width>
+    <height>180</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout" rowminimumheight="1,1,2,0">
+   <property name="leftMargin">
+    <number>10</number>
+   </property>
+   <property name="topMargin">
+    <number>10</number>
+   </property>
+   <property name="rightMargin">
+    <number>10</number>
+   </property>
+   <property name="bottomMargin">
+    <number>10</number>
+   </property>
+   <property name="spacing">
+    <number>10</number>
+   </property>
+   <item row="0" column="0" rowspan="4">
+    <widget class="QLabel" name="lbImage">
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="3">
+    <widget class="QLabel" name="lbRating">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>评分</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1" colspan="3">
+    <widget class="QLabel" name="lbSummary">
+     <property name="text">
+      <string>番茄工作法是简单易行的时间管理工具，由弗朗西斯科•西里洛于1992年创立。
+使用番茄工作法需准备的工具：一个番茄计时器，三张表格。
+使用番茄工作法需遵守的规则：其一，一个番茄时间共30分钟，25分钟工作,5分钟休息；其二，一个番茄时间是不可分割的；其三，每4个番茄时间后，停止工作，进行一次较长时间的休息，大约15到30分钟；其四，完成一个任务，划掉一个。
+番茄工作法的精髓：1.一次只做一件事，保持专注；2.按照轻重缓急程度分解目标任务，高效完成；3.做完一件划掉一件，增加成就感，避免半途而废；4.整理杂乱无序的工作事项，克服拖延症；5.持续性改善时间管理能力，让优秀成为一种习惯。
+番茄工作法可以帮助我们轻松地提高自己的时间管理能力，让每一项任务的结果都能达到预期。</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" colspan="3">
+    <widget class="QLabel" name="lbAuPubTime">
+     <property name="text">
+      <string>作者 / 出版社+ 出版 / 时间 / 馆藏数量</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" colspan="3">
+    <widget class="QLabel" name="lbTitle">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>30</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>书名</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1" colspan="2">
+    <widget class="QProgressBar" name="pbRating">
+     <property name="value">
+      <number>24</number>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

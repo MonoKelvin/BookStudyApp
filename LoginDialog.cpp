@@ -58,13 +58,13 @@ bool LoginDialog::loggedIn()
 {
     bool loginStatus = false;
 
-    QDir userDir(BookStudyAPI::LocalUserLoginDirectory);
+    QDir userDir(LocalUserLoginDirectory);
     if (!userDir.exists()) {
-        userDir.mkdir(BookStudyAPI::LocalUserLoginDirectory);
+        userDir.mkdir(LocalUserLoginDirectory);
     } else {
         // 找到用户信息文件夹下的UserData.bls的文件
         // UserData.bls文件是加密过的MD5二进制文件，后缀表示 binary login info
-        QFile md5File(BookStudyAPI::LocalUserLoginDirectory + "UserData.bli");
+        QFile md5File(LocalUserLoginDirectory + "UserData.bli");
 
         if (md5File.exists()) {
             loginStatus = true;

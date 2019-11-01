@@ -9,7 +9,7 @@
 #include "Widgets/PromptWidget.h"
 #include "Widgets/AvatorWidget.h"
 #include "Widgets/UserPageWidget.h"
-#include "Widgets/SimpleBookViewWidget.h"
+#include "Widgets/BookViewWidget.h"
 
 #include <QCloseEvent>
 #include <QJsonParseError>
@@ -34,9 +34,11 @@ MainWindow::MainWindow(UserModel *user, QWidget *parent) :
     setShadowEffect(ui->leSearchBox, QColor(200, 210, 220, 100), 30.0, 0.0, 4.0);
     setShadowEffect(ui->navMenuWidget, QColor(200, 210, 220, 100), 30.0, 4.0);
     // setShadowEffect(ui->toolBarWidget, QColor(200, 210, 210, 200), 30.0, -4.0);
+    setShadowEffect(ui->btnLoadMore, QColor(85, 118, 189, 180), 20.0, 0.0, 4.0);
 
     setUserBaseInfo();
     ui->lwLentBooksView->loadLentBooksFromUser(mUser->id());
+    ui->lwLibraryView->loadBooksFromLibrary();
 //    getCategories();
 
     connections();
@@ -69,7 +71,7 @@ void MainWindow::connections()
         userPage->deleteLater();
     });
 
-    connect(ui->btnRefresh, &QPushButton::clicked, this, &MainWindow::getCategories);
+    connect(ui->btnLoadMore, &QPushButton::clicked, ui->lwLibraryView, &BookViewWidget::loadBooksFromLibrary);
 
 //    connect(mLogoutRequest, &HttpRequest::request, [=](bool success, const QByteArray &data) {
 //        // todo: 下一个版本加入【退出时提醒用户快到还书时间】
@@ -84,7 +86,7 @@ void MainWindow::setUserBaseInfo()
     if (mUser) {
         ui->lbNickName->setText(mUser->nickName());
 
-        QString avatorPath = BookStudyAPI::LocalUserCacheDirectory + "Image/";
+        QString avatorPath = LocalUserCacheDirectory + "Image/";
 
         if (QFile(avatorPath + "avatar.png").exists()) {
             ui->lbAvator->setAvatar(QPixmap(avatorPath + "avatar.png"));
@@ -124,53 +126,53 @@ void MainWindow::setUserBaseInfo()
     }
 }
 
-void MainWindow::getCategories()
-{
-    HttpRequest *request = new HttpRequest;
-    //    request->sendRequest(BookStudyAPI::Sort);
-    request->sendRequest("http://api.aixdzs.com/sort");
-    connect(request, &HttpRequest::request, [=](bool success, const QByteArray &data) {
+//void MainWindow::getCategories()
+//{
+//    HttpRequest *request = new HttpRequest;
+//    //    request->sendRequest(Sort);
+//    request->sendRequest("http://api.aixdzs.com/sort");
+//    connect(request, &HttpRequest::request, [=](bool success, const QByteArray &data) {
 
-        ui->lwClassificationView->clear();
+//        ui->lwClassificationView->clear();
 
-        qDeleteAll(CategoryWidget::Categories);
-        CategoryWidget::Categories.clear();
+//        qDeleteAll(CategoryWidget::Categories);
+//        CategoryWidget::Categories.clear();
 
-        QString jsonData(data);
-        if (success) {
-            QJsonParseError jsonError;
-            QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData.toUtf8(), &jsonError);
-            if (jsonError.error == QJsonParseError::NoError) {
-                QJsonObject jsonObj = jsonDoc.object();
+//        QString jsonData(data);
+//        if (success) {
+//            QJsonParseError jsonError;
+//            QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData.toUtf8(), &jsonError);
+//            if (jsonError.error == QJsonParseError::NoError) {
+//                QJsonObject jsonObj = jsonDoc.object();
 
-                // TODO:后台中不要male, 使用categories
-                if (jsonObj.contains("male")) {
-                    QJsonValue jsonValue = jsonObj.value("male");
-                    if (jsonValue.isArray()) {
-                        QJsonArray array = jsonValue.toArray();
-                        int nSize = array.size();
-                        for (int i = 0; i < nSize; ++i) {
-                            QJsonObject obj = array.at(i).toObject();
+//                // TODO:后台中不要male, 使用categories
+//                if (jsonObj.contains("male")) {
+//                    QJsonValue jsonValue = jsonObj.value("male");
+//                    if (jsonValue.isArray()) {
+//                        QJsonArray array = jsonValue.toArray();
+//                        int nSize = array.size();
+//                        for (int i = 0; i < nSize; ++i) {
+//                            QJsonObject obj = array.at(i).toObject();
 
-                            QString catName = obj.value("name").toString();
-                            int bookCount = obj.value("bookCount").toString().toInt();
-                            int id = obj.value("_id").toString().toInt();
+//                            QString catName = obj.value("name").toString();
+//                            int bookCount = obj.value("bookCount").toString().toInt();
+//                            int id = obj.value("_id").toString().toInt();
 
-                            CategoryWidget *cat = new CategoryWidget(catName, bookCount, id, this);
-                            CategoryWidget::Categories.append(cat);
+//                            CategoryWidget *cat = new CategoryWidget(catName, bookCount, id, this);
+//                            CategoryWidget::Categories.append(cat);
 
-                            QListWidgetItem *item = new QListWidgetItem(ui->lwClassificationView);
-                            item->setSizeHint(QSize(180, 90));
+//                            QListWidgetItem *item = new QListWidgetItem(ui->lwClassificationView);
+//                            item->setSizeHint(QSize(180, 90));
 
-                            ui->lwClassificationView->addItem(item);
-                            ui->lwClassificationView->setItemWidget(item, cat);
-                        }
-                    }
-                }
-            }
-        } else {
-            PromptWidget *prompt = new PromptWidget("图书分类信息获取失败，请检查网络", this);
-            prompt->show(PromptWidget::PromptType::Alert);
-        }
-    });
-}
+//                            ui->lwClassificationView->addItem(item);
+//                            ui->lwClassificationView->setItemWidget(item, cat);
+//                        }
+//                    }
+//                }
+//            }
+//        } else {
+//            PromptWidget *prompt = new PromptWidget("图书分类信息获取失败，请检查网络", this);
+//            prompt->show(PromptWidget::PromptType::Alert);
+//        }
+//    });
+//}

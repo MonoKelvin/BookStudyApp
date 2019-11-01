@@ -42,7 +42,7 @@ void LoginWithQQMail::verify(const QMap<QString, QString> &mapping)
     HttpRequest *request = new HttpRequest;
 
     QString postData = "type=login&account=" + mapping["account"] + "&password=" + mapping["password"];
-    request->sendRequest(BookStudyAPI::UserLogInOut, HttpRequest::HttpRequestType::POST, postData);
+    request->sendRequest(UserLogInOut, HttpRequest::HttpRequestType::POST, postData);
 
     connect(request, &HttpRequest::request, [=](bool success, const QByteArray &data) {
         if (success) {
