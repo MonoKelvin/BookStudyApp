@@ -8,6 +8,7 @@ class MainWindow;
 }
 
 class UserModel;
+class HttpRequest;
 class QButtonGroup;
 
 class MainWindow : public QWidget
@@ -16,7 +17,7 @@ class MainWindow : public QWidget
 
 public:
     explicit MainWindow(UserModel *user = nullptr, QWidget *parent = nullptr);
-    ~MainWindow();
+    ~MainWindow() override;
 
 private:
     void connections(void);
@@ -32,6 +33,12 @@ private:
 
     // 从登录页面传递过来的用户信息
     UserModel *mUser;
+
+//    HttpRequest *mLogoutRequest;
+
+    // QWidget interface
+protected:
+    void closeEvent(QCloseEvent *event) override;
 };
 
 #endif // MAINWINDOW_H

@@ -36,6 +36,8 @@ SOURCES += \
         Widgets/AvatorWidget.cpp \
         Widgets/CategoryWidget.cpp \
         Widgets/PromptWidget.cpp \
+        Widgets/SimpleBookViewWidget.cpp \
+        Widgets/SimpleBookWidget.cpp \
         Widgets/UserPageWidget.cpp \
         main.cpp \
         MainWindow.cpp
@@ -53,6 +55,8 @@ HEADERS += \
         Widgets/AvatorWidget.h \
         Widgets/CategoryWidget.h \
         Widgets/PromptWidget.h \
+        Widgets/SimpleBookViewWidget.h \
+        Widgets/SimpleBookWidget.h \
         Widgets/UserPageWidget.h
 
 FORMS += \

@@ -3,7 +3,7 @@
 
 #include "Utility/Utility.h"
 #include "Utility/BookStudyAPI.h"
-#include "Http/LoginWithPassword.h"
+#include "Http/LoginWithQQMail.h"
 #include "Widgets/PromptWidget.h"
 
 #include <QLabel>
@@ -39,7 +39,11 @@ LoginDialog::LoginDialog(QWidget *parent) :
     ui->leNickName->setHidden(true);
 
     // 登录方式默认初始化为账号密码登录
-    mLoginMethod = new LoginWithPassword;
+    mLoginMethod = new LoginWithQQMail;
+
+    // TODO: 发布时删除
+    ui->leInputAccount->setText("15007083506@qq.com");
+    ui->leInputPassword->setText("pwd123");
 
     connections();
 }
@@ -112,14 +116,14 @@ void LoginDialog::connections()
         mIsSignUp = !mIsSignUp;
 
         if (mIsSignUp) {
-            ui->lbNoAccount->setText("没有账号？");
+            ui->lbNoAccount->setText("已有账号？");
             ui->btnSignUp->setText("返回登录");
             ui->lbLogin->setText("注册");
             ui->btnLogin->setText("注册");
             ui->leInputAccount->clear();
             ui->leInputPassword->clear();
         } else {
-            ui->lbNoAccount->setText("已有帐号？");
+            ui->lbNoAccount->setText("没有帐号？");
             ui->btnSignUp->setText("点击注册");
             ui->lbLogin->setText("登录");
             ui->btnLogin->setText("登录");

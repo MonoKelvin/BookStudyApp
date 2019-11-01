@@ -1,15 +1,17 @@
 ﻿#include "MainWindow.h"
 #include "ui_MainWindow.h"
 
+#include "Http/HttpRequest.h"
+#include "Utility/BookStudyAPI.h"
+#include "Utility/Utility.h"
 #include "Http/ILoginOperation.h"
 #include "Widgets/CategoryWidget.h"
-#include "Widgets/AvatorWidget.h"
-#include "Utility/BookStudyAPI.h"
-#include "Http/HttpRequest.h"
-#include "Utility/Utility.h"
 #include "Widgets/PromptWidget.h"
+#include "Widgets/AvatorWidget.h"
 #include "Widgets/UserPageWidget.h"
+#include "Widgets/SimpleBookViewWidget.h"
 
+#include <QCloseEvent>
 #include <QJsonParseError>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -22,6 +24,8 @@ MainWindow::MainWindow(UserModel *user, QWidget *parent) :
 {
     ui->setupUi(this);
 
+    mUser = user;
+
     mNavButtonGroup = ui->navButtonGroup;
     mNavButtonGroup->setId(ui->btnBookShelf, 0);
     mNavButtonGroup->setId(ui->btnBookGarden, 1);
@@ -31,10 +35,9 @@ MainWindow::MainWindow(UserModel *user, QWidget *parent) :
     setShadowEffect(ui->navMenuWidget, QColor(200, 210, 220, 100), 30.0, 4.0);
     // setShadowEffect(ui->toolBarWidget, QColor(200, 210, 210, 200), 30.0, -4.0);
 
-    mUser = user;
-
     setUserBaseInfo();
-    getCategories();
+    ui->lwLentBooksView->loadLentBooksFromUser(mUser->id());
+//    getCategories();
 
     connections();
 }
@@ -67,6 +70,13 @@ void MainWindow::connections()
     });
 
     connect(ui->btnRefresh, &QPushButton::clicked, this, &MainWindow::getCategories);
+
+//    connect(mLogoutRequest, &HttpRequest::request, [=](bool success, const QByteArray &data) {
+//        // todo: 下一个版本加入【退出时提醒用户快到还书时间】
+//        Q_UNUSED(success);
+//        Q_UNUSED(data);
+//        qDebug() << "data";
+//    });
 }
 
 void MainWindow::setUserBaseInfo()
@@ -76,8 +86,8 @@ void MainWindow::setUserBaseInfo()
 
         QString avatorPath = BookStudyAPI::LocalUserCacheDirectory + "Image/";
 
-        if (QFile(avatorPath + "avator.png").exists()) {
-            ui->lbAvator->setAvator(QPixmap(avatorPath + "avator.png"));
+        if (QFile(avatorPath + "avatar.png").exists()) {
+            ui->lbAvator->setAvatar(QPixmap(avatorPath + "avatar.png"));
         } else {
             QDir dir(avatorPath);
             if (!dir.exists()) {
@@ -94,17 +104,17 @@ void MainWindow::setUserBaseInfo()
                         PromptWidget *prompt = new PromptWidget("头像数据加载出错", this);
                         prompt->show(PromptWidget::PromptType::Alert);
                     }
-                    if (!pixmap.save(avatorPath + "avator.png")) {
+                    if (!pixmap.save(avatorPath + "avatar.png")) {
                         PromptWidget *prompt = new PromptWidget("保存文件失败", this);
                         prompt->show(PromptWidget::PromptType::Alert);
                     }
 
-                    ui->lbAvator->setAvator(pixmap);
+                    ui->lbAvator->setAvatar(pixmap);
                 } else {
                     // TODO:提示错误并设置为默认头像
                     PromptWidget *prompt = new PromptWidget("头像获取失败，请检查网络", this);
                     prompt->show(PromptWidget::PromptType::Alert);
-                    ui->lbAvator->setAvator(QPixmap("qrc:/Icons/AppIcons/default_avator.png"));
+                    ui->lbAvator->setAvatar(QPixmap("qrc:/Icons/AppIcons/default_avatar.png"));
                 }
             });
         }

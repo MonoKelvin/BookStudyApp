@@ -15,19 +15,19 @@ public:
     inline void setNickName(const QString &userName) { mNickName = userName; }
     inline QString account(void) const { return mAccount; }
     inline void setAccount(const QString &account) { mAccount = account; }
-    inline QString passward(void) const { return mPassward; }
-    inline void setPassward(const QString &passward) { mPassward = passward; }
+    inline QString password(void) const { return mPassword; }
+    inline void setPassword(const QString &passward) { mPassword = passward; }
     inline QString avatarUrl(void) const { return mAvatarUrl; }
     inline void setAvatarUrl(const QString &avatarUrl) { mAvatarUrl = avatarUrl; }
-    inline int id(void) const { return mID; }
-    inline void setID(int id) { mID = id; }
+    inline unsigned int id(void) const { return mID; }
+    inline void setID(unsigned int id) { mID = id; }
     inline QString md5(void) const { return mMD5; }
     inline void setMD5(const QString &md5) { mMD5 = md5; }
 
 private:
     QString mNickName;
     QString mAccount;
-    QString mPassward;
+    QString mPassword;
     QString mAvatarUrl;
 
     /* 用户ID
@@ -35,7 +35,7 @@ private:
      * 2. 方便数据库查找其他内容，而不是使用用户名
      * SELECT user_name FROM UserTable WHERE id = {xxx};
      */
-    int mID;
+    unsigned int mID;
 
     /* MD5加密生成的序列号
      * 用于和数据库中第一次保存的MD5序列号进行对比来验证登录。

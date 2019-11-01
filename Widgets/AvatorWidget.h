@@ -12,7 +12,7 @@ class AvatorWidget : public QLabel
 public:
     explicit AvatorWidget(QWidget *parent = nullptr);
 
-    inline void setAvator(const QPixmap &pixmap)
+    inline void setAvatar(const QPixmap &pixmap)
     {
         mAvator = pixmap;
         update();

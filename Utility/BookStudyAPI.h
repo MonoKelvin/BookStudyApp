@@ -19,9 +19,10 @@ public:
     static QString BookDetail; // /book/{id}
 
     static QString UserUrl; // /user/{id}
-    static QString UserLogin;   // /user/login.php
-    static QString UserCollection; // /user/collection/{id}
-    static QString UserReadingHistory;  // /user/history/{id}
+    static QString UserLogInOut;   // /user/login_out.php?
+    static QString UserLentBook;    // /user/lent_book.php?
+    static QString UserCollection; // /user/collection/id={id}
+    static QString UserReadingHistory;  // /user/history/id={id}
 };
 
 #endif // BOOKSTUDYAPI_H
