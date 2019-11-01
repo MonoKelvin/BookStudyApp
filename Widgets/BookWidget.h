@@ -15,7 +15,7 @@ private:
     unsigned int mID;
 };
 
-class BookCardWidget : public QWidget
+class BookCardWidget : public QWidget, public QListWidgetItem
 {
     Q_OBJECT
 

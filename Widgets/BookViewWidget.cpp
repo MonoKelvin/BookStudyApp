@@ -4,6 +4,8 @@
 #include "Utility/BookStudyAPI.h"
 #include "Widgets/PromptWidget.h"
 #include "Widgets/BookWidget.h"
+#include "Widgets/BookDetailWidget.h"
+#include "Utility/Utility.h"
 
 #include <QDebug>
 #include <QJsonParseError>
@@ -16,6 +18,11 @@ BookViewWidget::BookViewWidget(QWidget *parent)
 {
     connect(this, &BookViewWidget::itemDoubleClicked, [=](QListWidgetItem *item) {
         // TODO: 获取book的详情
+        auto id = static_cast<BookCardWidget *>(item)->mID;
+        qDebug() << id;
+        BookDetailWidget *book = new BookDetailWidget(id, this);
+        setShadowEffect(book, QColor(180, 180, 190, 220), 30.0, 0.0, 4.0);
+        book->exec();
     });
 }
 
@@ -86,6 +93,7 @@ void BookViewWidget::loadBooksFromLibrary()
 
                         // 新建书籍类
                         BookCardWidget *book = new BookCardWidget(unsigned(obj.value("id").toString().toInt()), this);
+                        qDebug() << book->mID;
                         book->mTitle->setText(obj.value("title").toString());
                         book->mImage->setPixmap(QPixmap("qrc:/Icons/AppIcons/default_book.png"));
 

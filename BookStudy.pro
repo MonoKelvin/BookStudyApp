@@ -33,6 +33,7 @@ SOURCES += \
         Model/UserModel.cpp \
         Utility/Utility.cpp \
         Widgets/AvatorWidget.cpp \
+        Widgets/BookDetailWidget.cpp \
         Widgets/BookViewWidget.cpp \
         Widgets/BookWidget.cpp \
         Widgets/CategoryWidget.cpp \
@@ -52,6 +53,7 @@ HEADERS += \
         Utility/BookStudyAPI.h \
         Utility/Utility.h \
         Widgets/AvatorWidget.h \
+        Widgets/BookDetailWidget.h \
         Widgets/BookViewWidget.h \
         Widgets/BookWidget.h \
         Widgets/CategoryWidget.h \
@@ -61,6 +63,7 @@ HEADERS += \
 FORMS += \
         LoginDialog.ui \
         MainWindow.ui \
+        Widgets/BookDetailWidget.ui \
         Widgets/CategoryWidget.ui \
         Widgets/UserPageWidget.ui
 
