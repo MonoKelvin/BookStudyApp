@@ -3,12 +3,18 @@
 
 #include "LoginDialog.h"
 
-// 用于测试的管理员id\md5
-// id = 1; md5 = f2d2b9ae2d741a04634adfe18e2ea2c0
+#include <QFile>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    // 加载样式表
+    QFile styleFile(qApp->applicationDirPath()+"/Theme/Light.qss");
+    styleFile.open(QIODevice::ReadOnly);
+    QString styles = styleFile.readAll();
+    a.setStyleSheet(styles);
+    styleFile.close();
 
     // 登录页面
     LoginDialog *loginPage = new LoginDialog;

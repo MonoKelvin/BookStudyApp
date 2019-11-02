@@ -1,6 +1,6 @@
 ﻿#include "Utility.h"
 
-#include <QGraphicsDropShadowEffect >
+#include <QGraphicsDropShadowEffect>
 
 void setShadowEffect(QWidget *widget, const QColor &color, qreal radius, qreal xoffset, qreal yoffset)
 {

@@ -25,7 +25,7 @@ UserModel* LoginWithQQMail::parse(const QString &jsonData)
         UserModel *user = new UserModel;
 
         user->setID(unsigned(jsonObj.value("id").toString().toInt()));
-        user->setNickName(jsonObj.value("name").toString());
+        user->setName(jsonObj.value("name").toString());
 //        user->setAccount(jsonObj.value("account").toString());
 //        user->setPassward(jsonObj.value("password").toString());
         user->setAvatarUrl(jsonObj.value("avatar").toString());
@@ -71,7 +71,7 @@ void LoginWithQQMail::signup(const QMap<QString, QString> &mapping)
                 emit failed(jsonObj.value("msg").toString());
             }
         } else {
-            emit failed("服务器出现问题，请等待我们的修复");
+            emit failed("注册信息不完整！");
         }
     });
 }

@@ -11,8 +11,8 @@ class UserModel
 public:
     UserModel();
 
-    inline QString nickName(void) const { return mNickName; }
-    inline void setNickName(const QString &userName) { mNickName = userName; }
+    inline QString name(void) const { return mName; }
+    inline void setName(const QString &userName) { mName = userName; }
     inline QString account(void) const { return mAccount; }
     inline void setAccount(const QString &account) { mAccount = account; }
     inline QString password(void) const { return mPassword; }
@@ -25,7 +25,7 @@ public:
     inline void setMD5(const QString &md5) { mMD5 = md5; }
 
 private:
-    QString mNickName;
+    QString mName;
     QString mAccount;
     QString mPassword;
     QString mAvatarUrl;

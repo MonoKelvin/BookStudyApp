@@ -34,6 +34,12 @@ public:
      */
     virtual void signup(const QMap<QString, QString> &) {}
 
+    /** 忘记密码方法，可以用该方法实现如何找回密码
+     * @param verifyMethod : 找回密码时提供的验证方式，通常为手机号或邮箱
+     * @note 该方法不是必须继承实现的
+     */
+    virtual void forgetPassword(const QString &) {}
+
 signals:
     // 信号：登录成功
     void login(UserModel *user);

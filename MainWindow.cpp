@@ -82,7 +82,7 @@ void MainWindow::connections()
         if(needLoginPrompt()) {
             UserPageWidget *userPage = new UserPageWidget(this);
             userPage->setAvator(ui->lbAvator->avator());
-            userPage->setNickName(mUser->nickName());
+            userPage->setName(mUser->name());
             userPage->exec();
             userPage->deleteLater();
         }
@@ -129,7 +129,7 @@ bool MainWindow::needLoginPrompt()
 void MainWindow::setUserBaseInfo()
 {
     if (mUser) {
-        ui->lbNickName->setText(mUser->nickName());
+        ui->lbNickName->setText(mUser->name());
 
         QString avatorPath = LocalUserCacheDirectory + "Image/";
 

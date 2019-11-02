@@ -63,6 +63,9 @@ void BookViewWidget::loadLentBooksFromUser(unsigned int id)
                         this->addItem(item);
                         this->setItemWidget(item, book);
                     }
+                } else {
+                    PromptWidget *prompt = new PromptWidget("您还没有借过书，去图书馆看一看吧！", this);
+                    prompt->show(PromptWidget::PromptType::Prompt);
                 }
             }
 

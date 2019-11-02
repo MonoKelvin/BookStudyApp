@@ -17,7 +17,7 @@ public:
 
     void setAvator(const QPixmap& pixmap);
 
-    void setNickName(const QString &nickName);
+    void setName(const QString &name);
 
 private:
     Ui::UserPageWidget *ui;

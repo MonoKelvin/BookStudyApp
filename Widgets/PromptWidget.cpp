@@ -10,19 +10,17 @@
 PromptWidget::PromptWidget(const QString &prompt, QWidget *parent)
     : QWidget(parent)
 {
-    this->resize(20 * prompt.length(), 5 * prompt.length());
-
     QLabel *lbContents = new QLabel(prompt, this);
     QHBoxLayout *hbLayout = new QHBoxLayout(this);
 
+    QFontMetrics font(lbContents->font());
     lbContents->setAlignment(Qt::AlignCenter);
     lbContents->setWordWrap(true);
 
     hbLayout->addWidget(lbContents);
     hbLayout->setMargin(10);
 
-    this->setLayout(hbLayout);
-//    setShadowEffect(this, QColor(100, 100, 100, 160), 30.0);
+    this->resize(100 + font.horizontalAdvance(prompt), font.height() + 50);
 }
 
 void PromptWidget::show(PromptWidget::PromptType type)

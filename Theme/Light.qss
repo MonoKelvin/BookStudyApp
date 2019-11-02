@@ -1,0 +1,476 @@
+/*
+	color: rgb(85, 118, 189);
+	blue-primary: rgb(85,118,189);
+	blue-active: rgb(68,94,151);
+	border-frame:  rgb(220, 220, 220);
+	primary-background: rgb(240, 240, 245);
+	icon-color: rgb(30,40,70);
+	btn_pressed-bg: background-color: rgb(241,243,246);
+
+	subtitle: color: #888;
+
+	orange: #ffa428;
+*/
+
+*{
+	font: 14px "Microsoft YaHei";
+	color: rgb(30,40,70);
+	background-color: rgb(240, 240, 245);
+	outline: none;
+	border: none;
+}
+
+/* Dialog */
+QDialog
+{
+	background-color: #fff;
+}
+
+/* Line Edit */
+QLineEdit
+{
+	height: 40px;
+	border-radius: 20px;
+	background: rgba(50,50,80,15);
+	padding-left: 16px;
+	padding-right: 16px;
+}
+QLineEdit:hover, QLineEdit:focus
+{
+	background: rgba(50,50,80,30);
+}
+
+
+/* Label */
+QLabel
+{
+	background:transparent;
+}
+
+/* ToolTip */
+QToolTip {
+	color: rgb(30,40,70);
+    border: 1px solid rgba(180, 180, 180, 100);
+    padding: 5px;
+    border-radius: 4px;
+    opacity: 150;
+}
+
+/* List View */
+QListView::item
+{
+	background-color: rgb(255, 255, 255);
+	padding: 10px;
+	border-radius: 4px;
+	border: 0 solid transparent;
+}
+QListView::item:hover {
+	padding: 8px;
+    border: 2px solid rgb(85,118,189);
+}
+QListView::item:selected {
+	padding: 8px;
+    border: 2px solid rgb(187,200,228);
+}
+QListView::item:selected:!active {
+	padding: 8px;
+    border: 2px solid #fff;
+}
+QListView::item:selected:active {
+	padding: 8px;
+    border: 2px solid rgb(187,200,228);
+}
+QListView::item:hover {
+	padding: 8px;
+    border: 2px solid rgb(224,227,241);
+}
+
+/* Menu */
+QMenu{
+	background-color: #fff;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+QMenu::item{
+	padding: 5px 10px 5px 25px;
+	border-left: 10px solid transparent;
+}
+QMenu::item:selected{
+	color: #fff;
+	background-color: #5576be;
+}
+QMenu::item:pressed{
+	background-color: #445e97;
+}
+QMenu::separator{
+    height: 1px;
+    background: #eee;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+QMenu:disabled{
+	color:  rgba(50,50,80,80);
+}
+
+/* LineEdit */
+QLineEdit
+{
+	height: 40px;
+	padding: 0px 20px;
+	border-radius: 20px;
+	background: white;
+}
+/*QLineEdit::hover
+{
+	border: 1px solid rgb(85,118,189);;
+}*/
+
+/* ScrollBar  */
+QScrollBar:vertical
+{
+    background: white;
+    width: 10px;
+}
+QScrollBar::handle:vertical
+{
+    background: rgb(224,227,241);
+    min-height: 10px;
+}
+QScrollBar::handle:hover
+{
+	background: rgb(187,200,228);
+}
+QScrollBar::add-line:vertical
+{
+    height: 0;
+}
+QScrollBar::sub-line:vertical
+{
+    height: 0;
+}
+
+QScrollBar:horizontal
+{
+    background: white;
+    height: 10px;
+}
+QScrollBar::handle:horizontal
+{
+    background: rgb(224,227,241);
+    min-width: 10px;
+}
+QScrollBar::horizontal:hover
+{
+	background: rgb(187,200,228);
+}
+QScrollBar::add-line:horizontal
+{
+    width: 0;
+}
+QScrollBar::sub-line:horizontal
+{
+    width: 0;
+}
+
+/* Widget */
+#navMenuWidget , #toolBarWidget, #headerWidget, #frameBackground
+{
+	background: #fff;
+}
+
+
+/**************************************************/
+/* 				     Login Dialog                 */
+/**************************************************/
+LoginDialog {
+	font-size: 16px;
+	font-family: "方正大标宋简体";
+	color: rgb(50,50,80);
+	selection-background-color: rgb(89, 118, 189);
+	selection-color: #fff;
+}
+LoginDialog #showWidget
+{
+	background: #f5f6f7;
+}
+LoginDialog #lbAppName
+{
+	font-size: 36px;
+}
+LoginDialog #lbVerse
+{
+	font-size: 18px;
+	color: rgba(50,50,80, 80);
+}
+LoginDialog #lbDeveloper
+{
+	font-size: 12px;
+	color: rgba(50,50,80, 80);
+}
+LoginDialog #lbAppLogo
+{
+	image: url(:/Icons/AppIcons/BookStudy.png);
+}
+LoginDialog #lbLogin
+{
+	font-size: 24px;
+	color: rgba(50,50,80, 80);
+}
+
+/**************************************************/
+/* 				     Progress Bar                 */
+/**************************************************/
+QProgressBar
+{
+    color: transparent;
+}
+QProgressBar::chunk {
+    background-color: #ffa428;
+}
+
+/**************************************************/
+/* 				    Header Navigation             */
+/**************************************************/
+#lbHeaderName
+{
+	font-size: 20px;
+	font-weight: bold;
+	padding-left: 10px;
+}
+
+/**************************************************/
+/* 				      User Info                   */
+/**************************************************/
+UserPageWidget #lbUserName
+{
+	font-size: 20px;
+	font-weight: bold;
+}
+
+UserPageWidget #lbUserAvator
+{
+    max-width: 100px;
+    max-height: 100px;
+}
+
+/**************************************************/
+/* 				        Book Info                 */
+/**************************************************/
+#lbBookTitle
+{
+	font-size: 18px;
+	font-weight: bold;
+	color: rgb(30,40,70);
+    min-height: 30px;
+}
+
+/**************************************************/
+/* 				   Book Shelf Style               */
+/**************************************************/
+SimpleBookWidget,
+#lwLentBooksView::item
+{
+	width: 150px;
+    height: 240px;
+}
+SimpleBookWidget #lbImage
+{
+    min-width: 130px;
+    min-height: 180px;
+    max-width: 130px;
+    max-height: 180px;
+}
+
+/**************************************************/
+/* 			         Book Card Style              */
+/**************************************************/
+
+BookCardWidget #lbAuPubTime,
+BookCardWidget #lbSummary
+{
+	color: #888;
+}
+BookCardWidget #lbRating
+{
+	color: #ffa428
+}
+BookCardWidget #pbRating
+{
+    max-height: 4px;
+}
+BookCardWidget #lbImage
+{
+    padding: 0px;
+    max-width: 130px;
+    max-height: 180px;
+}
+BookCardWidget,
+#lwLibraryView::item
+{
+	width: 480px;
+	height: 180px;
+}
+
+/**************************************************/
+/* 			       PushButton Style               */
+/**************************************************/
+#btnLoadMore,
+#btnRefresh,
+#btnLogout
+{
+	color: white;
+	min-height: 30px;
+	border-radius: 4px;
+	background-color: rgb(85,118,189);
+}
+#btnLoadMore:hover,
+#btnRefresh:hover,
+#btnLogout:hover
+{
+	background-color: rgb(68,94,151);
+}
+/* close button */
+#btnClose
+{
+	font-size: 22px;
+	background: #fff;
+	color: #888;
+}
+#btnClose::hover
+{
+	color: #fff;
+	background:rgb(224,227,241);
+}
+#btnClose::pressed
+{
+	color: #fff;
+	background:rgb(187,200,228);
+}
+#btnLogin
+{
+	color: #fff;
+	min-width: 40px;
+	height: 40px;
+	border-radius: 20px;
+	background: #5576be;
+}
+#btnLogin:hover
+{
+	background: #445e97;
+}
+#lbForgetPwd,
+#btnSignUp
+{
+	color: #5576be;
+	background: transparent;
+}
+#lbForgetPwd:hover,
+#btnSignUp:hover
+{
+	color: #445e97;
+}
+
+/**************************************************/
+/* 			      Navgation Bar Menus             */
+/**************************************************/
+#btnBookShelf,
+#btnBookGarden,
+#btnSetting
+{
+	height: 50px;
+	border-radius: 0;
+	background-color: transparent;
+}
+#btnBookShelf:hover,
+#btnBookGarden:hover,
+#btnSetting:hover
+{
+	padding-left: -4px;
+	border-left: 4px solid rgb(85,118,189);
+	background-color: rgb(232,240,255);
+}
+#btnBookShelf:checked,
+#btnBookGarden:checked,
+#btnSetting:checked
+{
+	padding-left: -4px;
+	border-left: 4px solid rgb(85,118,189);
+	background-color: rgb(210,226,255);
+}
+
+/**************************************************/
+/* 			  Book Detail Widget Style            */
+/**************************************************/
+#lbHeader_h2
+{
+	font-size: 18px;
+	font-weight: bold;
+	background: #fff;
+}
+#frameBackground,
+BookDetailWidget #sawBookContents
+{
+	background: #fff;
+	border-radius: 8px;
+}
+
+BookDetailWidget #lbRatingPgsBar
+{
+	min-width: 24px;
+	min-height:140px;
+}
+BookDetailWidget #lbImage
+{
+	max-width: 200px;
+	max-height: 260px;
+}
+BookDetailWidget #lbBookTitle
+{
+	font-size: 18px;
+	font-weight: bold;
+	max-height: 36px;
+}
+BookDetailWidget #lbRemaining_h2
+{
+	font-size: 16px;
+	font-weight: bold;
+	min-height: 30px;
+	background: #ffa428;
+	border-radius: 15px;
+	min-width: 120px;
+	color: #fff;
+}
+BookDetailWidget #lbOtherInfo_h2,
+BookDetailWidget #lbSummary_h2,
+BookDetailWidget #lbTranslator_h2,
+BookDetailWidget #lbTags_h2,
+BookDetailWidget #lbOriginTitle_h2,
+BookDetailWidget #lbAuthorIntro_h2,
+BookDetailWidget #lbCatalog_h2,
+BookDetailWidget #lbBinding_h2,
+BookDetailWidget #lbBookDetail_h2
+{
+	font-size: 18px;
+	font-weight: bold;
+	min-height: 36px;
+	color: #888;
+}
+BookDetailWidget #lbRating_h2
+{
+	font-size: 18px;
+	font-weight: bold;
+	min-height: 36px;
+	color: #ffa428;
+}
+BookDetailWidget #lbSummary,
+BookDetailWidget #lbTranslator,
+BookDetailWidget #lbTags,
+BookDetailWidget #lbOriginTitle,
+BookDetailWidget #lbAuthorIntro,
+BookDetailWidget #lbCatalog,
+BookDetailWidget #lbBinding,
+BookDetailWidget #lbRating
+{
+	color: rgb(30,40,70);
+	padding-left: 20px;
+}

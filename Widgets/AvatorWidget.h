@@ -3,9 +3,6 @@
 
 #include <QLabel>
 
-class QGraphicsDropShadowEffect;
-class QPropertyAnimation;
-
 class AvatorWidget : public QLabel
 {
     Q_OBJECT

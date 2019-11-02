@@ -42,8 +42,8 @@ LoginDialog::LoginDialog(QWidget *parent) :
     mLoginMethod = new LoginWithQQMail;
 
     // TODO: 发布时删除
-    ui->leInputAccount->setText("15007083506@qq.com");
-    ui->leInputPassword->setText("pwd123");
+    ui->leInputAccount->setText("3465511957@qq.com");
+    ui->leInputPassword->setText("123456");
 
     connections();
 }
@@ -113,6 +113,7 @@ void LoginDialog::connections()
         ui->btnLogin->setEnabled(true);
     });
 
+    // 注册成功
     connect(mLoginMethod, &ILoginOperation::registered, [=] {
         ui->btnLogin->setEnabled(true);
         PromptWidget *prompt = new PromptWidget("注册成功！", this);
@@ -131,6 +132,7 @@ void LoginDialog::connections()
         ui->leRecheckPwd->setHidden(mIsSignUp);
         ui->leNickName->setHidden(mIsSignUp);
         mIsSignUp = !mIsSignUp;
+        ui->lbForgetPwd->setHidden(mIsSignUp);
 
         if (mIsSignUp) {
             ui->lbNoAccount->setText("已有账号？");

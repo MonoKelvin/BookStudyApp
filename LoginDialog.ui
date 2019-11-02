@@ -16,116 +16,7 @@
    </iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">*{
-	font-size: 16px;
-	font-family: &quot;方正大标宋简体&quot;;
-	color: rgb(50,50,80);
-	selection-background-color: rgb(89, 118, 189);
-	selection-color: #fff;
-	border:none;
-}
-
-/* Menu */ 
-QMenu{
-	background-color: #fff;
-	padding-top: 8px;
-	padding-bottom: 8px;
-}
-QMenu::item{
-	padding: 5px 10px 5px 25px;
-	border-left: 10px solid transparent;
-}
-QMenu::item:selected{
-	color: #fff;
-	background-color: #5576be;
-}
-QMenu::item:pressed{
-	background-color: #445e97;
-}
-QMenu::separator{
-    height: 1px;
-    background: #eee;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-QMenu:disabled{
-	color:  rgba(50,50,80,80);
-}
-
-/* Widget */
-
-QDialog
-{
-	background-color: #fff;
-}
-#showWidget
-{
-	background: #f5f6f7;
-}
-
-
-/* Label */
-
-#lbAppName
-{
-	font-size: 36px;
-}
-#lbVerse
-{
-	font-size: 18px;
-	color: rgba(50,50,80, 80);
-}
-#lbDeveloper
-{
-	font-size: 12px;
-	color: rgba(50,50,80, 80);
-}
-#lbAppLogo
-{
-	image: url(:/Icons/AppIcons/BookStudy.png);
-}
-#lbLogin
-{
-	font-size: 24px;
-	color: rgba(50,50,80, 80);
-}
-
-/* Line Edit */
-QLineEdit
-{
-	height: 40px;
-	border-radius: 20px;
-	background: rgba(50,50,80,15);
-	padding-left: 16px;
-	padding-right: 16px;
-}
-QLineEdit:hover, QLineEdit:focus
-{
-	background: rgba(50,50,80,30);
-}
-
-/* Button */
-#btnLogin
-{
-	color: #fff;
-	min-width: 40px;
-	height: 40px;
-	border-radius: 20px;
-	background: #5576be;
-}
-#btnLogin:hover
-{
-	background: #445e97;
-}
-#btnSignUp
-{
-	color: #5576be;
-	background: #fff;
-}
-#btnSignUp:hover
-{
-	color: #445e97;
-}</string>
+   <string notr="true"/>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1000,618">
    <property name="spacing">
@@ -316,7 +207,7 @@ QLineEdit:hover, QLineEdit:focus
         <number>20</number>
        </property>
        <property name="placeholderText">
-        <string>账号（只支持QQ邮箱注册）</string>
+        <string>账号（只支持QQ邮箱）</string>
        </property>
       </widget>
      </item>
@@ -340,6 +231,22 @@ QLineEdit:hover, QLineEdit:focus
        </property>
        <property name="placeholderText">
         <string>确认密码</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lbForgetPwd">
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://bookstudy.com/forget_password&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;忘记密码？&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+       <property name="openExternalLinks">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
