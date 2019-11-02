@@ -14,6 +14,7 @@ public:
 public:
     UserModel *parse(const QString &jsonData) override;
     void verify(const QMap<QString, QString>& mapping) override;
+    void signup(const QMap<QString, QString> &mapping) override;
 };
 
 #endif // LOGINWITHQQMAIL_H

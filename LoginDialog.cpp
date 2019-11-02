@@ -38,7 +38,7 @@ LoginDialog::LoginDialog(QWidget *parent) :
     ui->leRecheckPwd->setHidden(true);
     ui->leNickName->setHidden(true);
 
-    // 登录方式默认初始化为账号密码登录
+    // 登录方式默认初始化为QQ邮箱验证登录
     mLoginMethod = new LoginWithQQMail;
 
     // TODO: 发布时删除
@@ -82,14 +82,23 @@ void LoginDialog::connections()
 {
     // 当点击 登录/注册 按钮，进行 验证登录/提交注册
     connect(ui->btnLogin, &QPushButton::clicked, [=] {
+        QMap<QString, QString> mapping;
+        mapping["account"] = ui->leInputAccount->text();
+        mapping["password"] = ui->leInputPassword->text();
+
         if (mIsSignUp) {
-            // TODO: 实现注册功能
+            if (ui->leInputPassword->text() != ui->leRecheckPwd->text()) {
+                PromptWidget *prompt = new PromptWidget("两次输入的密码不一样！", this);
+                prompt->show(PromptWidget::PromptType::Alert);
+                return;
+            }
+            mapping["name"] = ui->leNickName->text();
+            mLoginMethod->signup(mapping);
         } else {
-            QMap<QString, QString> mapping;
-            mapping["account"] = ui->leInputAccount->text();
-            mapping["password"] = ui->leInputPassword->text();
             mLoginMethod->verify(mapping);
         }
+        // 防止多次点击造成重复请求
+        ui->btnLogin->setEnabled(false);
     });
 
     // 当登录成功时，会返回一个用户信息模型
@@ -101,12 +110,20 @@ void LoginDialog::connections()
             PromptWidget *prompt = new PromptWidget("用户数据获取失败，请重新登录", this);
             prompt->show(PromptWidget::PromptType::Alert);
         }
+        ui->btnLogin->setEnabled(true);
+    });
+
+    connect(mLoginMethod, &ILoginOperation::registered, [=] {
+        ui->btnLogin->setEnabled(true);
+        PromptWidget *prompt = new PromptWidget("注册成功！", this);
+        prompt->show(PromptWidget::PromptType::Prompt);
     });
 
     // 登录失败
-    connect(mLoginMethod, &ILoginOperation::failed, [=] {
-        PromptWidget *prompt = new PromptWidget("登录失败，请检查账号或密码是否正确", this);
+    connect(mLoginMethod, &ILoginOperation::failed, [=](const QString& msg) {
+        PromptWidget *prompt = new PromptWidget(msg, this);
         prompt->show(PromptWidget::PromptType::Alert);
+        ui->btnLogin->setEnabled(true);
     });
 
     // 点击注册按钮实现的登录、注册切换功能

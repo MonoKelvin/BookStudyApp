@@ -21,6 +21,7 @@ public:
 
 private:
     void connections(void);
+    bool needLoginPrompt(void);
 
 private slots:
     void setUserBaseInfo(void);

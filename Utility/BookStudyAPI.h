@@ -15,6 +15,7 @@
 
 #define UserUrl             QString(BaseUrl + "/user/index.php?id=")
 #define UserLogInOut        QString(BaseUrl + "/user/login_out.php")
+#define UserSignup          QString(BaseUrl + "/user/signup.php")
 #define UserLentBook        QString(BaseUrl + "/user/lent_books.php")
 #define UserCollection      QString(BaseUrl + "/user/collection/")
 #define UserReadingHistory  QString(BaseUrl + "/user/history/")

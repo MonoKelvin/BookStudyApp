@@ -306,7 +306,7 @@ QLineEdit:hover, QLineEdit:focus
      <item>
       <widget class="QLineEdit" name="leNickName">
        <property name="placeholderText">
-        <string>昵称</string>
+        <string>昵称（1-16个字符）</string>
        </property>
       </widget>
      </item>
@@ -316,7 +316,7 @@ QLineEdit:hover, QLineEdit:focus
         <number>20</number>
        </property>
        <property name="placeholderText">
-        <string>账号</string>
+        <string>账号（只支持QQ邮箱注册）</string>
        </property>
       </widget>
      </item>
@@ -329,7 +329,7 @@ QLineEdit:hover, QLineEdit:focus
         <enum>QLineEdit::Password</enum>
        </property>
        <property name="placeholderText">
-        <string>密码</string>
+        <string>密码（6-16个字符）</string>
        </property>
       </widget>
      </item>

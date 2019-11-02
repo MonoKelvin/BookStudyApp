@@ -27,10 +27,10 @@ PromptWidget::PromptWidget(const QString &prompt, QWidget *parent)
 
 void PromptWidget::show(PromptWidget::PromptType type)
 {
-    if (type == PromptType::Prompt) {
-        setStyleSheet("background: rgb(85,118,189); color: white; border-radius: 4px;");
-    } else {
+    if (type == PromptType::Alert) {
         setStyleSheet("background: rgb(220,50,120); color: white; border-radius: 4px;");
+    } else {
+        setStyleSheet("background: rgb(85,118,189); color: white; border-radius: 4px;");
     }
 
     QSize pwSize = parentWidget()->size();

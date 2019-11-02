@@ -37,11 +37,13 @@ MainWindow::MainWindow(UserModel *user, QWidget *parent) :
     // 阴影特效
     setShadowEffect(ui->leSearchBox, QColor(200, 210, 220, 100), 30.0, 0.0, 4.0);
     setShadowEffect(ui->navMenuWidget, QColor(200, 210, 220, 100), 30.0, 4.0);
-    // setShadowEffect(ui->toolBarWidget, QColor(200, 210, 210, 200), 30.0, -4.0);
+    setShadowEffect(ui->btnRefresh, QColor(85, 118, 189, 180), 20.0, 0.0, 4.0);
     setShadowEffect(ui->btnLoadMore, QColor(85, 118, 189, 180), 20.0, 0.0, 4.0);
 
     // 获取用户信息
-    setUserBaseInfo();
+    if (needLoginPrompt()) {
+        setUserBaseInfo();
+    }
 
     // 设置滚动风格
     ui->lwLibraryView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
@@ -77,11 +79,19 @@ void MainWindow::connections()
 
     connect(ui->lbAvator, &AvatorWidget::onClick, [=] {
         // TODO: 用户详情
-        UserPageWidget *userPage = new UserPageWidget(this);
-        userPage->setAvator(ui->lbAvator->avator());
-        userPage->setNickName(mUser->nickName());
-        userPage->exec();
-        userPage->deleteLater();
+        if(needLoginPrompt()) {
+            UserPageWidget *userPage = new UserPageWidget(this);
+            userPage->setAvator(ui->lbAvator->avator());
+            userPage->setNickName(mUser->nickName());
+            userPage->exec();
+            userPage->deleteLater();
+        }
+    });
+
+    connect(ui->btnRefresh, &QPushButton::clicked, [=] {
+        if (needLoginPrompt()) {
+            ui->lwLentBooksView->loadLentBooksFromUser(mUser->id());
+        }
     });
 
     // 加载更多
@@ -102,7 +112,18 @@ void MainWindow::connections()
 //        Q_UNUSED(success);
 //        Q_UNUSED(data);
 //        qDebug() << "data";
-//    });
+    //    });
+}
+
+bool MainWindow::needLoginPrompt()
+{
+    if (mUser == nullptr) {
+        PromptWidget *prompt = new PromptWidget("您还没有登录，请登录", this);
+        prompt->show(PromptWidget::PromptType::Alert);
+        return false;
+    } else {
+        return true;
+    }
 }
 
 void MainWindow::setUserBaseInfo()
