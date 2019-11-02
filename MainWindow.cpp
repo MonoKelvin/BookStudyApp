@@ -83,13 +83,12 @@ void MainWindow::connections()
 
             if (!loginPage->isExit()) {
                 mUser = loginPage->getUser();
+                PromptWidget *prompt = new PromptWidget("登录成功", this);
+                prompt->show(PromptWidget::PromptType::Prompt);
+
+                // 重新获取用户数据
+                init();
             }
-
-            // 重新获取用户数据
-            init();
-
-            PromptWidget *prompt = new PromptWidget("登录成功", this);
-            prompt->show(PromptWidget::PromptType::Prompt);
 
             // 销毁登录页
             loginPage->deleteLater();

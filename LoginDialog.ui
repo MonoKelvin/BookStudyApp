@@ -11,9 +11,8 @@
    </rect>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normalon>:/Icons/AppIcons/AppLogo.png</normalon>
-   </iconset>
+   <iconset resource="Assets/Resources.qrc">
+    <normaloff>:/Icon/AppIcons/AppLogo.png</normaloff>:/Icon/AppIcons/AppLogo.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
@@ -63,6 +62,9 @@
         <property name="text">
          <string/>
         </property>
+        <property name="pixmap">
+         <pixmap resource="Assets/Resources.qrc">:/Icon/AppIcons/BookStudy.png</pixmap>
+        </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
@@ -103,7 +105,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Developed by &lt;/span&gt;&lt;span style=&quot; font-size:9pt; color:#5576be;&quot;&gt;MonoKelvin&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;&lt;br/&gt;github: &lt;/span&gt;&lt;a href=&quot;https://github.com/MonoKelvin&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#007af4;&quot;&gt;https://github.com/MonoKelvin&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;Developed by &lt;/span&gt;&lt;span style=&quot; font-size:14px; color:#5576be;&quot;&gt;MonoKelvin&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;&lt;br/&gt;github: &lt;/span&gt;&lt;a href=&quot;https://github.com/MonoKelvin&quot;&gt;&lt;span style=&quot; text-decoration: underline;font-size:14px; color:#007af4;&quot;&gt;https://github.com/MonoKelvin&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -361,6 +363,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="Assets/Resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

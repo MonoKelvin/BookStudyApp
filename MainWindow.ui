@@ -14,9 +14,8 @@
    <string>MainWindow</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normalon>:/Icons/AppIcons/AppLogo.png</normalon>
-   </iconset>
+   <iconset resource="Assets/Resources.qrc">
+    <normaloff>:/Icon/AppIcons/AppLogo.png</normaloff>:/Icon/AppIcons/AppLogo.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
@@ -523,7 +522,9 @@
    <header location="global">Widgets/BookViewWidget.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="Assets/Resources.qrc"/>
+ </resources>
  <connections/>
  <buttongroups>
   <buttongroup name="navButtonGroup"/>
