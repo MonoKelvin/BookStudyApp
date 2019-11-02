@@ -13,6 +13,11 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normalon>:/Icons/AppIcons/AppLogo.png</normalon>
+   </iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">/*
 	color: rgb(85, 118, 189);
@@ -110,9 +115,9 @@ QMenu:disabled{
 /* LineEdit */
 QLineEdit
 {
-	height: 40px;
+	height: 46px;
 	padding: 0px 20px;
-	border-radius: 20px;
+	border-radius: 23px;
 	background: white;
 }
 /*QLineEdit::hover
@@ -222,12 +227,14 @@ SimpleBookWidget,
 #lwLentBooksView::item
 {
 	width: 150px;
-	height: 240px;
+    height: 240px;
 }
 SimpleBookWidget #lbImage
 {
-    width: 130px;
-    height: 180px;
+    min-width: 130px;
+    min-height: 180px;
+    max-width: 130px;
+    max-height: 180px;
 }
 
 /**************************************************/
@@ -543,7 +550,7 @@ BookDetailWidget #lbRating
       <item>
        <widget class="QPushButton" name="btnBookGarden">
         <property name="text">
-         <string>图书馆</string>
+         <string>图书馆    </string>
         </property>
         <property name="icon">
          <iconset>
@@ -640,14 +647,17 @@ BookDetailWidget #lbRating
          <property name="movement">
           <enum>QListView::Static</enum>
          </property>
-         <property name="resizeMode">
-          <enum>QListView::Adjust</enum>
+         <property name="flow">
+          <enum>QListView::LeftToRight</enum>
          </property>
          <property name="spacing">
           <number>20</number>
          </property>
          <property name="viewMode">
           <enum>QListView::IconMode</enum>
+         </property>
+         <property name="uniformItemSizes">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -852,18 +862,12 @@ BookDetailWidget #lbRating
          <widget class="QLineEdit" name="leSearchBox">
           <property name="minimumSize">
            <size>
-            <width>100</width>
+            <width>120</width>
             <height>0</height>
            </size>
           </property>
-          <property name="maximumSize">
-           <size>
-            <width>400</width>
-            <height>16777215</height>
-           </size>
-          </property>
           <property name="placeholderText">
-           <string>搜索...</string>
+           <string>输入ISBN13、书名、作者或标签查找图书</string>
           </property>
          </widget>
         </item>

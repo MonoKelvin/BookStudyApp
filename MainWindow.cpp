@@ -17,28 +17,41 @@
 #include <QJsonArray>
 #include <QDebug>
 #include <QDir>
+#include <QScrollBar>
 
 MainWindow::MainWindow(UserModel *user, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setWindowTitle(QString("书斋-v%1.%2.%3").arg(BS_MAJOR_VERSION).arg(BS_MINOR_VERSION).arg(BS_REVERSION));
 
     mUser = user;
 
+    // 初始化左侧导航栏按钮组
     mNavButtonGroup = ui->navButtonGroup;
     mNavButtonGroup->setId(ui->btnBookShelf, 0);
     mNavButtonGroup->setId(ui->btnBookGarden, 1);
     mNavButtonGroup->setId(ui->btnSetting, 2);
 
+    // 阴影特效
     setShadowEffect(ui->leSearchBox, QColor(200, 210, 220, 100), 30.0, 0.0, 4.0);
     setShadowEffect(ui->navMenuWidget, QColor(200, 210, 220, 100), 30.0, 4.0);
     // setShadowEffect(ui->toolBarWidget, QColor(200, 210, 210, 200), 30.0, -4.0);
     setShadowEffect(ui->btnLoadMore, QColor(85, 118, 189, 180), 20.0, 0.0, 4.0);
 
+    // 获取用户信息
     setUserBaseInfo();
+
+    // 设置滚动风格
+    ui->lwLibraryView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    ui->lwLibraryView->verticalScrollBar()->setSingleStep(15);
+    ui->lwLibraryView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    ui->lwLibraryView->verticalScrollBar()->setSingleStep(15);
+
+    // 加载图书信息
     ui->lwLentBooksView->loadLentBooksFromUser(mUser->id());
-    ui->lwLibraryView->loadBooksFromLibrary();
+    ui->lwLibraryView->loadBooksFromLibrary(false);
 //    getCategories();
 
     connections();
@@ -71,7 +84,18 @@ void MainWindow::connections()
         userPage->deleteLater();
     });
 
-    connect(ui->btnLoadMore, &QPushButton::clicked, ui->lwLibraryView, &BookViewWidget::loadBooksFromLibrary);
+    // 加载更多
+    connect(ui->btnLoadMore, &QPushButton::clicked, [=] {
+        ui->lwLibraryView->loadBooksFromLibrary(true, ui->leSearchBox->text());
+    });
+
+    // 搜索
+    connect(ui->leSearchBox, &QLineEdit::returnPressed, [=] {
+        if (!ui->btnBookGarden->isChecked()) {
+            ui->btnBookGarden->click();
+        }
+        ui->lwLibraryView->loadBooksFromLibrary(false, ui->leSearchBox->text());
+    });
 
 //    connect(mLogoutRequest, &HttpRequest::request, [=](bool success, const QByteArray &data) {
 //        // todo: 下一个版本加入【退出时提醒用户快到还书时间】

@@ -11,7 +11,6 @@
 #define BaseUrl         QString("http://api.bookstudy.com")
 #define Sort            QString(BaseUrl + "/sort/")
 #define BooksLibrary    QString(BaseUrl + "/book/library.php?first=%1&number=%2")
-#define BookSearch      QString(BaseUrl + "/book/search?query=")
 #define BookDetail      QString(BaseUrl + "/book/library.php?id=%1")
 
 #define UserUrl             QString(BaseUrl + "/user/index.php?id=")

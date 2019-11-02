@@ -15,6 +15,9 @@ public:
     explicit BookDetailWidget(unsigned int id, QWidget *parent = nullptr);
     ~BookDetailWidget();
 
+signals:
+    void loaded(bool success);
+
 private:
     Ui::BookDetailWidget *ui;
 

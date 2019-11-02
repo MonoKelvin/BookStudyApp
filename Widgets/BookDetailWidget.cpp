@@ -4,7 +4,6 @@
 #include "Http/HttpRequest.h"
 #include "Utility/BookStudyAPI.h"
 #include "Utility/Utility.h"
-#include "Widgets/PromptWidget.h"
 
 #include <QDebug>
 #include <QJsonParseError>
@@ -64,6 +63,8 @@ void BookDetailWidget::loadData()
 
     connect(request, &HttpRequest::request, [=](bool success, const QString &jsonData) {
         if (success) {
+            success = false;
+
             QJsonParseError jsonError;
             QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData.toUtf8(), &jsonError);
 
@@ -118,20 +119,24 @@ void BookDetailWidget::loadData()
                     // 请求封面
                     HttpRequest *imgRequest = new HttpRequest;
                     imgRequest->sendRequest(obj.value("image").toString());
-                    connect(imgRequest, &HttpRequest::request, [ = ](bool success, const QByteArray &data) {
-                        if (success) {
+                    connect(imgRequest, &HttpRequest::request, [ = ](bool suc, const QByteArray &data) {
+                        if (suc) {
                             QPixmap pixmap;
                             if (pixmap.loadFromData(data)) {
                                ui->lbImage->setPixmap(pixmap);
                             }
                         }
                     });
+
+                    success = true;
                 }
             }
+        }
 
+        if (!success) {
+            emit loaded(false);
         } else {
-            PromptWidget *prompt = new PromptWidget("图书获取失败，请检查网络", this);
-            prompt->show(PromptWidget::PromptType::Alert);
+            emit loaded(true);
         }
     });
 }

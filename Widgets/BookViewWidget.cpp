@@ -15,11 +15,7 @@
 BookViewWidget::BookViewWidget(QWidget *parent)
     : QListWidget(parent)
 {
-//    connect(this, &BookViewWidget::itemDoubleClicked, [=](QListWidgetItem *item) {
-//        unsigned int id = static_cast<SimpleBookWidget *>(item)->mID;
-//        BookDetailWidget *book = new BookDetailWidget(id, this);
-//        book->exec();
-//    });
+
 }
 
 void BookViewWidget::loadLentBooksFromUser(unsigned int id)
@@ -77,12 +73,26 @@ void BookViewWidget::loadLentBooksFromUser(unsigned int id)
     });
 }
 
-void BookViewWidget::loadBooksFromLibrary()
+void BookViewWidget::loadBooksFromLibrary(bool loadMore, const QString &key)
 {
-    this->scrollToBottom();
-
     HttpRequest *request = new HttpRequest;
-    request->sendRequest(BooksLibrary.arg(this->count()).arg(FETCH_BOOK_NUMBER));
+    QString getUrl = BooksLibrary;
+    if (!key.isEmpty()) {
+        if(!loadMore){
+            while (nullptr != this->item(0)) {
+                auto i = this->item(0);
+                this->removeItemWidget(i);
+                delete i;
+                i = nullptr;
+            }
+            this->clear();
+        }
+        getUrl += "&key=" + key;
+    }
+    getUrl = getUrl.arg(this->count()).arg(FETCH_BOOK_NUMBER);
+    request->sendRequest(getUrl);
+
+    this->scrollToBottom();
 
     connect(request, &HttpRequest::request, [=](bool success, const QString &jsonData) {
         if (success) {
@@ -121,6 +131,15 @@ void BookViewWidget::loadBooksFromLibrary()
                         pubTime = (pubTime.isEmpty()) ? "" : pubTime + " / ";
                         collection = (collection.toInt() == 0) ? "暂无图书可借" : ("馆藏：" + collection + "本");
                         book->mAuPubTime->setText(author + pubTime + collection);
+
+                        // 选中文字，目前由于是item绑定widget，所以无法显示选中效果
+                        // if (!key.isEmpty()) {
+                        //     int index = book->mTitle->text().indexOf(key);
+                        //     book->mTitle->setSelection(index, key.length());
+
+                        //     index = book->mAuPubTime->text().indexOf(key);
+                        //     book->mTitle->setSelection(index, key.length());
+                        // }
 
                         // 请求封面
                         HttpRequest *imgRequest = new HttpRequest;

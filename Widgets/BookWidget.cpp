@@ -1,6 +1,7 @@
 ﻿#include "BookWidget.h"
 
 #include "Widgets/BookDetailWidget.h"
+#include "Widgets/PromptWidget.h"
 
 #include <QVBoxLayout>
 #include <QLabel>
@@ -32,7 +33,15 @@ void SimpleBookWidget::mouseDoubleClickEvent(QMouseEvent *event)
     Q_UNUSED(event);
 
     BookDetailWidget *book = new BookDetailWidget(mID, this);
-    book->exec();
+    connect(book, &BookDetailWidget::loaded, [=](bool success) {
+        if (success) {
+            book->exec();
+        } else {
+            PromptWidget *prompt = new PromptWidget("图书信息获取失败，请检查网络", book->parentWidget()->parentWidget());
+            prompt->show(PromptWidget::PromptType::Alert);
+            book->deleteLater();
+        }
+    });
 }
 
 BookCardWidget::BookCardWidget(unsigned int id, QWidget *parent)
@@ -86,5 +95,13 @@ void BookCardWidget::mouseDoubleClickEvent(QMouseEvent *event)
     Q_UNUSED(event);
 
     BookDetailWidget *book = new BookDetailWidget(mID, this);
-    book->exec();
+    connect(book, &BookDetailWidget::loaded, [=](bool success) {
+        if (success) {
+            book->exec();
+        } else {
+            PromptWidget *prompt = new PromptWidget("图书信息获取失败，请检查网络", book->parentWidget()->parentWidget());
+            prompt->show(PromptWidget::PromptType::Alert);
+            book->deleteLater();
+        }
+    });
 }
