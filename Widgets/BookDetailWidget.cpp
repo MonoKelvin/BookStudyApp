@@ -11,6 +11,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QProgressBar>
+#include <QPushButton>
 
 BookDetailWidget::BookDetailWidget(unsigned int id, QWidget *parent) :
     QDialog(parent),
@@ -21,9 +22,34 @@ BookDetailWidget::BookDetailWidget(unsigned int id, QWidget *parent) :
     setWindowFlags(this->windowFlags() | Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground);
 
-    loadData();
+    int hdHeight = 50;
+    int padding = 30;
 
-    setShadowEffect(this, QColor(180, 180, 190, 220), 30.0, 0.0, 4.0);
+    // 布局
+    ui->sawBookContents->layout()->setContentsMargins(padding, hdHeight + 20, padding, padding);
+
+    // 窗口标题
+    QLabel *lbHeader = new QLabel("书籍详情", this);
+    lbHeader->setObjectName(QString::fromUtf8("lbHeader_h2"));
+    lbHeader->setAlignment(Qt::AlignCenter);
+    lbHeader->setGeometry(padding, padding, width() - 2 * padding, hdHeight);
+
+    // 窗口的关闭按钮
+    QPushButton *btnClose = new QPushButton("×", this);
+    btnClose->setObjectName(QString::fromUtf8("btnCloseBtn"));
+    btnClose->setGeometry(width() - hdHeight - padding, padding, hdHeight, hdHeight);
+    btnClose->raise();
+
+    // 关闭事件
+    connect(btnClose, &QPushButton::clicked, this, &BookDetailWidget::close);
+
+    // 设置美化特效
+    setShadowEffect(this, QColor(160, 165, 170, 140), qreal(padding));
+    setShadowEffect(ui->lbRemaining_h2, QColor(255, 164, 39, 140), 16.0, 0.0, 4.0);
+    setShadowEffect(lbHeader, QColor(200, 210, 220, 100), 20.0, 0.0, 4.0);
+
+    // 加载数据
+    loadData();
 }
 
 BookDetailWidget::~BookDetailWidget()
@@ -51,31 +77,42 @@ void BookDetailWidget::loadData()
 
                     // 设置评分
                     double rating = obj.value("rating").toString().toDouble();
-                    ui->lbRating->setText(QString::number(rating, 'f', 1) + "分");
+                    ui->lbRating_h2->setText(QString::number(rating, 'f', 1) + "分");
                     ui->lbRatingPgsBar_dtl->setValue(int(rating * 10));
 
-                    // 处理作者 + 出版时间 + 馆藏数量等
+                    // 处各种信息
                     QString author = obj.value("author").toString();
                     QString pubTime = obj.value("pubdate").toString();
                     QString collection = obj.value("remaining").toString();
-                    author = (author.isEmpty()) ? "" : author + "作者不详";
-                    pubTime = (pubTime.isEmpty()) ? "" : pubTime + "出版时间不详";
-                    collection = (collection.toInt() == 0) ? "暂无图书可借" : ("馆藏：" + collection + "本");
+                    QString originTitle = obj.value("origin_title").toString();
+                    QString translator = obj.value("translator").toString();
+                    QString tags = obj.value("tags").toString();
+                    QString binding = obj.value("binding").toString();
+                    QString publisher = obj.value("publisher").toString();
+
+                    author = (author.isEmpty()) ? "不详" : author;
+                    pubTime = (pubTime.isEmpty()) ? "不详" : pubTime;
+                    collection = (collection.toInt() == 0) ? "暂无书源" : ("馆藏：" + collection + "本");
+                    tags = (tags.isEmpty()) ? "无" : tags;
+                    translator = (translator.isEmpty()) ? "不详" : translator;
+                    binding = (binding.isEmpty()) ? "不详" : binding;
+                    publisher = (publisher.isEmpty()) ? "不详" : publisher;
 
                     ui->lbAuthor->setText("作者：" + author);
-                    ui->lbPubdate->setText("出版时间：" + pubTime);
                     ui->lbSubTitle->setText("副标题：" + obj.value("subtitle").toString());
-                    ui->lbBinding->setText(obj.value("binding").toString());
-                    ui->lbPage->setText(obj.value("pages").toString());
-                    ui->lbPrice->setText(obj.value("prices").toString());
-                    ui->lbOriginTitle->setText(obj.value("origin_title").toString());
-                    ui->lbTags->setText(obj.value("tags").toString());
-                    ui->lbTranslator->setText(obj.value("translator").toString());
-
-                    // 处理简介的换行和省略号
+                    ui->lbPublisher->setText("出版社：" + publisher);
+                    ui->lbPubdate->setText("出版时间：" + pubTime);
+                    ui->lbPage->setText("页数：" + obj.value("pages").toString());
+                    ui->lbPrice->setText("定价：" + obj.value("price").toString());
+                    ui->lbISBN13->setText("IBSN13：" + obj.value("isbn13").toString());
                     ui->lbSummary->setText(obj.value("summary").toString());
                     ui->lbAuthorIntro->setText(obj.value("author_intro").toString());
                     ui->lbCatalog->setText(obj.value("catalog").toString());
+                    ui->lbBinding->setText(binding);
+                    ui->lbOriginTitle->setText(originTitle);
+                    ui->lbTags->setText(tags);
+                    ui->lbTranslator->setText(translator);
+                    ui->lbRemaining_h2->setText(collection);
 
                     // 请求封面
                     HttpRequest *imgRequest = new HttpRequest;
