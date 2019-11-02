@@ -11,6 +11,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QProgressBar>
+#include <QDateTime>
 
 BookViewWidget::BookViewWidget(QWidget *parent)
     : QListWidget(parent)
@@ -31,6 +32,8 @@ void BookViewWidget::loadLentBooksFromUser(unsigned int id)
 
             if (jsonError.error == QJsonParseError::NoError) {
                 if (jsonDoc.isArray()) {
+                    clearBooks();
+
                     // 获取书籍数组列表
                     QJsonArray jsonArr = jsonDoc.array();
                     for (auto iter = jsonArr.begin(); iter != jsonArr.end(); iter++) {
@@ -39,6 +42,14 @@ void BookViewWidget::loadLentBooksFromUser(unsigned int id)
                         // 新建书籍类
                         SimpleBookWidget *book = new SimpleBookWidget(unsigned(obj.value("id").toString().toInt()), this);
                         book->mImage->setPixmap(QPixmap("qrc:/Icons/AppIcons/default_book.png"));
+
+                        // 获取借书，并算出还书时间
+                        QString lrTime = obj.value("lent_time").toString();
+                        QDateTime lentTime = QDateTime::fromString(lrTime, "yyyy-MM-dd hh:mm:ss");
+                        QDateTime returnTime = lentTime.addDays(qint64(30));
+                        lrTime = "借书时间：" + lrTime + "\n还书时间：" + returnTime.toString("yyyy-MM-dd hh:mm:ss") + "\n状态：";
+                        lrTime += (lentTime.daysTo(QDateTime::currentDateTime()) > 30) ? "逾期未还" : "未逾期";
+                        book->mImage->setToolTip(lrTime);
 
                         // 设置标题的省略模式
                         QString title = obj.value("title").toString();
@@ -59,7 +70,7 @@ void BookViewWidget::loadLentBooksFromUser(unsigned int id)
                             }
                         });
 
-                        QListWidgetItem *item = new QListWidgetItem(this);
+                        QListWidgetItem *item = new QListWidgetItem();
                         this->addItem(item);
                         this->setItemWidget(item, book);
                     }
@@ -82,12 +93,7 @@ void BookViewWidget::loadBooksFromLibrary(bool loadMore, const QString &key)
     QString getUrl = BooksLibrary;
     if (!key.isEmpty()) {
         if(!loadMore){
-            while (nullptr != this->item(0)) {
-                auto i = this->item(0);
-                this->removeItemWidget(i);
-                delete i;
-                i = nullptr;
-            }
+            clearBooks();
             this->clear();
         }
         getUrl += "&key=" + key;
@@ -169,4 +175,14 @@ void BookViewWidget::loadBooksFromLibrary(bool loadMore, const QString &key)
             prompt->show(PromptWidget::PromptType::Alert);
         }
     });
+}
+
+void BookViewWidget::clearBooks()
+{
+    while (nullptr != this->item(0)) {
+        auto i = this->item(0);
+        this->removeItemWidget(i);
+        delete i;
+        i = nullptr;
+    }
 }

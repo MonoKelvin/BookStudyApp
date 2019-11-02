@@ -18,6 +18,8 @@ LoginDialog::LoginDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    mUser = nullptr;
+
     // 左上角的诗句
     QLabel *verse = new QLabel(this);
     verse->setObjectName("lbVerse");
@@ -42,8 +44,8 @@ LoginDialog::LoginDialog(QWidget *parent) :
     mLoginMethod = new LoginWithQQMail;
 
     // TODO: 发布时删除
-    ui->leInputAccount->setText("3465511957@qq.com");
-    ui->leInputPassword->setText("123456");
+    ui->leInputAccount->setText("15007083506@qq.com");
+    ui->leInputPassword->setText("pwd123");
 
     connections();
 }
@@ -101,6 +103,9 @@ void LoginDialog::connections()
         ui->btnLogin->setEnabled(false);
     });
 
+    // 暂不登录，直接进入应用
+    connect(ui->btnEntryNologin, &QPushButton::clicked, this, &LoginDialog::accept);
+
     // 当登录成功时，会返回一个用户信息模型
     connect(mLoginMethod, &ILoginOperation::login, [=](UserModel *user) {
         mUser = user;
@@ -133,6 +138,7 @@ void LoginDialog::connections()
         ui->leNickName->setHidden(mIsSignUp);
         mIsSignUp = !mIsSignUp;
         ui->lbForgetPwd->setHidden(mIsSignUp);
+        ui->btnEntryNologin->setHidden(mIsSignUp);
 
         if (mIsSignUp) {
             ui->lbNoAccount->setText("已有账号？");

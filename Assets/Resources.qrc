@@ -1,5 +1,12 @@
 <RCC>
-    <qresource prefix="/Icons">
+    <qresource prefix="/Icon">
+        <file>AppIcons/AppLogo.png</file>
+        <file>AppIcons/BookStudy.png</file>
+        <file>AppIcons/default_avatar.png</file>
+        <file>AppIcons/default_book.png</file>
+        <file>AppIcons/github.png</file>
+        <file>AppIcons/Logo_BookStudy.png</file>
+        <file>AppIcons/QQ.png</file>
         <file>DefaultIcons/book_garden.png</file>
         <file>DefaultIcons/book_shelf.png</file>
         <file>DefaultIcons/check_circle.png</file>
@@ -13,6 +20,7 @@
         <file>DefaultIcons/min_window.png</file>
         <file>DefaultIcons/notification.png</file>
         <file>DefaultIcons/read.png</file>
+        <file>DefaultIcons/refresh.png</file>
         <file>DefaultIcons/restore_window.png</file>
         <file>DefaultIcons/search.png</file>
         <file>DefaultIcons/search_active.png</file>
@@ -20,10 +28,5 @@
         <file>DefaultIcons/sort.png</file>
         <file>DefaultIcons/unchecked.png</file>
         <file>DefaultIcons/user.png</file>
-        <file>AppIcons/AppLogo.png</file>
-        <file>AppIcons/BookStudy.png</file>
-        <file>AppIcons/default_avator.png</file>
-        <file>DefaultIcons/refresh.png</file>
-        <file>AppIcons/default_book.png</file>
     </qresource>
 </RCC>

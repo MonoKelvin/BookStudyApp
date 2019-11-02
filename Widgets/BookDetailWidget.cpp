@@ -22,6 +22,7 @@ BookDetailWidget::BookDetailWidget(unsigned int id, QWidget *parent) :
     setAttribute(Qt::WA_TranslucentBackground);
 
     // 布局
+    this->layout()->setMargin(SHADOW_PADDING);
     ui->sawBookContents->layout()->setContentsMargins(SHADOW_PADDING, HEADER_HEIGHT + 40, SHADOW_PADDING, SHADOW_PADDING);
 
     // 窗口标题

@@ -15,6 +15,12 @@ public:
         update();
     }
 
+    inline void setDefaultAvatar()
+    {
+        mAvator = QPixmap("qrc:/Icon/AppIcons/default_avatar.png");
+        update();
+    }
+
     inline QPixmap avator() const
     {
         return mAvator;

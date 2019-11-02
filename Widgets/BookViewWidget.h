@@ -15,6 +15,9 @@ signals:
 
 public slots:
     void loadBooksFromLibrary(bool loadMore, const QString& key = "");
+
+private:
+    void clearBooks();
 };
 
 #endif // BOOKVIEWWIDGET_H

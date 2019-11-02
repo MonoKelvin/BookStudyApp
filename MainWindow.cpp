@@ -10,6 +10,7 @@
 #include "Widgets/AvatorWidget.h"
 #include "Widgets/UserPageWidget.h"
 #include "Widgets/BookViewWidget.h"
+#include "LoginDialog.h"
 
 #include <QCloseEvent>
 #include <QJsonParseError>
@@ -40,22 +41,14 @@ MainWindow::MainWindow(UserModel *user, QWidget *parent) :
     setShadowEffect(ui->btnRefresh, QColor(85, 118, 189, 180), 20.0, 0.0, 4.0);
     setShadowEffect(ui->btnLoadMore, QColor(85, 118, 189, 180), 20.0, 0.0, 4.0);
 
-    // 获取用户信息
-    if (needLoginPrompt()) {
-        setUserBaseInfo();
-    }
-
     // 设置滚动风格
     ui->lwLibraryView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     ui->lwLibraryView->verticalScrollBar()->setSingleStep(15);
     ui->lwLibraryView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     ui->lwLibraryView->verticalScrollBar()->setSingleStep(15);
-
-    // 加载图书信息
-    ui->lwLentBooksView->loadLentBooksFromUser(mUser->id());
     ui->lwLibraryView->loadBooksFromLibrary(false);
-//    getCategories();
 
+    init();
     connections();
 }
 
@@ -78,13 +71,29 @@ void MainWindow::connections()
     });
 
     connect(ui->lbAvator, &AvatorWidget::onClick, [=] {
-        // TODO: 用户详情
-        if(needLoginPrompt()) {
+        if(mUser) {
             UserPageWidget *userPage = new UserPageWidget(this);
             userPage->setAvator(ui->lbAvator->avator());
             userPage->setName(mUser->name());
             userPage->exec();
             userPage->deleteLater();
+        } else {
+            LoginDialog *loginPage = new LoginDialog(this);
+            loginPage->exec();
+
+            if (!loginPage->isExit()) {
+                mUser = loginPage->getUser();
+            }
+
+            // 重新获取用户数据
+            init();
+
+            PromptWidget *prompt = new PromptWidget("登录成功", this);
+            prompt->show(PromptWidget::PromptType::Prompt);
+
+            // 销毁登录页
+            loginPage->deleteLater();
+            loginPage = nullptr;
         }
     });
 
@@ -126,6 +135,15 @@ bool MainWindow::needLoginPrompt()
     }
 }
 
+void MainWindow::init()
+{
+    // 加载图书信息
+    if(mUser){
+        setUserBaseInfo();
+        ui->lwLentBooksView->loadLentBooksFromUser(mUser->id());
+    }
+}
+
 void MainWindow::setUserBaseInfo()
 {
     if (mUser) {
@@ -161,13 +179,14 @@ void MainWindow::setUserBaseInfo()
                     // TODO:提示错误并设置为默认头像
                     PromptWidget *prompt = new PromptWidget("头像获取失败，请检查网络", this);
                     prompt->show(PromptWidget::PromptType::Alert);
-                    ui->lbAvator->setAvatar(QPixmap("qrc:/Icons/AppIcons/default_avatar.png"));
+                    ui->lbAvator->setDefaultAvatar();
                 }
             });
         }
     } else {
-        PromptWidget *prompt = new PromptWidget("用户数据加载出错，请重新登录", this);
-        prompt->show(PromptWidget::PromptType::Alert);
+        // 设置默认用户头像
+        ui->lbNickName->setText("点击登录");
+        ui->lbAvator->setDefaultAvatar();
     }
 }
 

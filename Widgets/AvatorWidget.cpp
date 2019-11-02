@@ -5,7 +5,7 @@
 AvatorWidget::AvatorWidget(QWidget *parent)
     : QLabel(parent)
 {
-    mAvator = QPixmap("qrc:/Icons/AppIcons/default_avator.png");
+    mAvator = QPixmap("qrc:/Icon/AppIcons/default_avatar.png");
 }
 
 void AvatorWidget::mousePressEvent(QMouseEvent *event)

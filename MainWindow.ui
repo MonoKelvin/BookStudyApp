@@ -45,19 +45,22 @@
       </property>
       <layout class="QGridLayout" name="gridLayout_4">
        <property name="leftMargin">
-        <number>10</number>
+        <number>20</number>
        </property>
        <property name="topMargin">
         <number>10</number>
        </property>
        <property name="rightMargin">
-        <number>10</number>
+        <number>20</number>
        </property>
        <property name="bottomMargin">
         <number>10</number>
        </property>
        <item row="2" column="0">
         <widget class="BookViewWidget" name="lwLentBooksView">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
          <property name="editTriggers">
           <set>QAbstractItemView::NoEditTriggers</set>
          </property>
@@ -78,9 +81,6 @@
          </property>
          <property name="viewMode">
           <enum>QListView::IconMode</enum>
-         </property>
-         <property name="uniformItemSizes">
-          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -105,13 +105,13 @@
      <widget class="QWidget" name="pageBookGarden">
       <layout class="QGridLayout" name="gridLayout_3">
        <property name="leftMargin">
-        <number>10</number>
+        <number>20</number>
        </property>
        <property name="topMargin">
         <number>10</number>
        </property>
        <property name="rightMargin">
-        <number>10</number>
+        <number>20</number>
        </property>
        <property name="bottomMargin">
         <number>10</number>
@@ -351,7 +351,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normalon>:/Icons/DefaultIcons/book_shelf.png</normalon>
+          <normalon>:/Icon/DefaultIcons/book_shelf.png</normalon>
          </iconset>
         </property>
         <property name="iconSize">
@@ -378,7 +378,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normalon>:/Icons/DefaultIcons/book_garden.png</normalon>
+          <normalon>:/Icon/DefaultIcons/book_garden.png</normalon>
          </iconset>
         </property>
         <property name="iconSize">
@@ -402,7 +402,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normalon>:/Icons/DefaultIcons/setting.png</normalon>
+          <normalon>:/Icon/DefaultIcons/setting.png</normalon>
          </iconset>
         </property>
         <property name="iconSize">
