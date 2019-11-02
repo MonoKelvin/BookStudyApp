@@ -1,5 +1,7 @@
 ﻿#include "BookWidget.h"
 
+#include "Widgets/BookDetailWidget.h"
+
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QProgressBar>
@@ -50,7 +52,7 @@ BookCardWidget::BookCardWidget(unsigned int id, QWidget *parent)
 
     mRatingPgsBar = new QProgressBar(this);
     mRatingPgsBar->setRange(0, 100);
-//    mRatingPgsBar->setObjectName(QString::fromUtf8("pbRating_lib"));
+    mRatingPgsBar->setObjectName(QString::fromUtf8("pbRating_lib"));
     mRatingPgsBar->setValue(24);
     gridLayout->addWidget(mRatingPgsBar, 2, 1, 1, 2);
 
@@ -58,4 +60,12 @@ BookCardWidget::BookCardWidget(unsigned int id, QWidget *parent)
     gridLayout->setRowMinimumHeight(1, 1);
     gridLayout->setRowMinimumHeight(2, 2);
 
+}
+
+void BookCardWidget::mouseDoubleClickEvent(QMouseEvent *event)
+{
+    Q_UNUSED(event);
+
+    BookDetailWidget *book = new BookDetailWidget(mID, this);
+    book->exec();
 }

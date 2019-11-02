@@ -3,6 +3,7 @@
 
 #include "Http/HttpRequest.h"
 #include "Utility/BookStudyAPI.h"
+#include "Utility/Utility.h"
 #include "Widgets/PromptWidget.h"
 
 #include <QDebug>
@@ -21,6 +22,8 @@ BookDetailWidget::BookDetailWidget(unsigned int id, QWidget *parent) :
     setAttribute(Qt::WA_TranslucentBackground);
 
     loadData();
+
+    setShadowEffect(this, QColor(180, 180, 190, 220), 30.0, 0.0, 4.0);
 }
 
 BookDetailWidget::~BookDetailWidget()

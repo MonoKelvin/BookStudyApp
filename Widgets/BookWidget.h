@@ -23,6 +23,9 @@ class BookCardWidget : public QWidget, public QListWidgetItem
 public:
     BookCardWidget(unsigned int id, QWidget *parent);
 
+protected:
+    void mouseDoubleClickEvent(QMouseEvent *event) override;
+
 private:
     QLabel *mImage;
     QLabel *mTitle;

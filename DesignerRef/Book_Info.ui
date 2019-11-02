@@ -13,6 +13,35 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">#From #sawBookContents {
+	background-color: rgb(240, 240, 245);
+	border-radius: 8px;
+}
+#From #lbImage
+{
+	max-heihgt: 260px;
+}
+#From  #lbBookTitle
+{
+	font-size: 18px;
+	font-weight: bold;
+}
+#From #lbOtherInfo
+{
+	font-size: 18px;
+	font-weight: bold;
+}
+#From #QProgressBar
+{
+	width: 20px;
+}
+#BookDetailWidget lbRating
+{
+	font-size: 18px;
+	font-weight: bold;
+}</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QScrollArea" name="scrollArea">

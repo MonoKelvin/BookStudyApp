@@ -82,10 +82,13 @@ QMenu:disabled{
 QProgressBar
 {
     color: transparent;
-    max-height: 4px;
 }
 QProgressBar::chunk {
     background-color: #ffa428;
+}
+#pbRating_lib
+{
+    max-height: 4px;
 }
 
 
