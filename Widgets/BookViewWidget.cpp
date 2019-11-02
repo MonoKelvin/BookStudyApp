@@ -4,6 +4,7 @@
 #include "Utility/BookStudyAPI.h"
 #include "Widgets/PromptWidget.h"
 #include "Widgets/BookWidget.h"
+#include "Widgets/BookDetailWidget.h"
 
 #include <QDebug>
 #include <QJsonParseError>
@@ -14,7 +15,11 @@
 BookViewWidget::BookViewWidget(QWidget *parent)
     : QListWidget(parent)
 {
-
+//    connect(this, &BookViewWidget::itemDoubleClicked, [=](QListWidgetItem *item) {
+//        unsigned int id = static_cast<SimpleBookWidget *>(item)->mID;
+//        BookDetailWidget *book = new BookDetailWidget(id, this);
+//        book->exec();
+//    });
 }
 
 void BookViewWidget::loadLentBooksFromUser(unsigned int id)
@@ -37,8 +42,14 @@ void BookViewWidget::loadLentBooksFromUser(unsigned int id)
 
                         // 新建书籍类
                         SimpleBookWidget *book = new SimpleBookWidget(unsigned(obj.value("id").toString().toInt()), this);
-                        book->setText(obj.value("title").toString());
-                        book->setIcon(QIcon(QPixmap("qrc:/Icons/AppIcons/default_book.png")));
+                        book->mImage->setPixmap(QPixmap("qrc:/Icons/AppIcons/default_book.png"));
+
+                        // 设置标题的省略模式
+                        QString title = obj.value("title").toString();
+                        QFontMetrics fontWidth(book->mTitle->font());
+                        QString elideNote = fontWidth.elidedText(title, Qt::ElideRight, book->mImage->width());
+                        book->mTitle->setText(elideNote);
+                        book->mTitle->setToolTip(title);
 
                         // 请求封面
                         HttpRequest *imgRequest = new HttpRequest;
@@ -47,13 +58,14 @@ void BookViewWidget::loadLentBooksFromUser(unsigned int id)
                             if (success) {
                                 QPixmap pixmap;
                                 if (pixmap.loadFromData(data)) {
-                                    book->setIcon(QIcon(pixmap));
+                                    book->mImage->setPixmap(pixmap);
                                 }
                             }
                         });
 
-                        // 放到列表中
-                        this->addItem(book);
+                        QListWidgetItem *item = new QListWidgetItem(this);
+                        this->addItem(item);
+                        this->setItemWidget(item, book);
                     }
                 }
             }

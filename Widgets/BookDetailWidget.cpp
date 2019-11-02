@@ -26,7 +26,7 @@ BookDetailWidget::BookDetailWidget(unsigned int id, QWidget *parent) :
     int padding = 30;
 
     // 布局
-    ui->sawBookContents->layout()->setContentsMargins(padding, hdHeight + 20, padding, padding);
+    ui->sawBookContents->layout()->setContentsMargins(padding, hdHeight + 40, padding, padding);
 
     // 窗口标题
     QLabel *lbHeader = new QLabel("书籍详情", this);
@@ -36,7 +36,7 @@ BookDetailWidget::BookDetailWidget(unsigned int id, QWidget *parent) :
 
     // 窗口的关闭按钮
     QPushButton *btnClose = new QPushButton("×", this);
-    btnClose->setObjectName(QString::fromUtf8("btnCloseBtn"));
+    btnClose->setObjectName(QString::fromUtf8("btnClose"));
     btnClose->setGeometry(width() - hdHeight - padding, padding, hdHeight, hdHeight);
     btnClose->raise();
 
@@ -44,9 +44,9 @@ BookDetailWidget::BookDetailWidget(unsigned int id, QWidget *parent) :
     connect(btnClose, &QPushButton::clicked, this, &BookDetailWidget::close);
 
     // 设置美化特效
-    setShadowEffect(this, QColor(160, 165, 170, 140), qreal(padding));
+    setShadowEffect(this, QColor(160, 165, 170, 100), qreal(padding));
     setShadowEffect(ui->lbRemaining_h2, QColor(255, 164, 39, 140), 16.0, 0.0, 4.0);
-    setShadowEffect(lbHeader, QColor(200, 210, 220, 100), 20.0, 0.0, 4.0);
+    setShadowEffect(lbHeader, QColor(200, 210, 220, 80), 30.0, 0.0, 4.0);
 
     // 加载数据
     loadData();
@@ -78,7 +78,7 @@ void BookDetailWidget::loadData()
                     // 设置评分
                     double rating = obj.value("rating").toString().toDouble();
                     ui->lbRating_h2->setText(QString::number(rating, 'f', 1) + "分");
-                    ui->lbRatingPgsBar_dtl->setValue(int(rating * 10));
+                    ui->lbRatingPgsBar->setValue(int(rating * 10));
 
                     // 处各种信息
                     QString author = obj.value("author").toString();
@@ -97,6 +97,7 @@ void BookDetailWidget::loadData()
                     translator = (translator.isEmpty()) ? "不详" : translator;
                     binding = (binding.isEmpty()) ? "不详" : binding;
                     publisher = (publisher.isEmpty()) ? "不详" : publisher;
+                    originTitle = (originTitle.isEmpty()) ? "无" : originTitle;
 
                     ui->lbAuthor->setText("作者：" + author);
                     ui->lbSubTitle->setText("副标题：" + obj.value("subtitle").toString());

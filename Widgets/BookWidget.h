@@ -6,16 +6,24 @@
 class QLabel;
 class QProgressBar;
 
-class SimpleBookWidget : public QListWidgetItem
+class SimpleBookWidget : public QWidget
 {
+    Q_OBJECT
+
+    friend class BookViewWidget;
 public:
-    SimpleBookWidget(unsigned int id, QListWidget *parent);
+    SimpleBookWidget(unsigned int id, QWidget *parent);
+
+protected:
+    void mouseDoubleClickEvent(QMouseEvent *event) override;
 
 private:
+    QLabel *mImage;
+    QLabel *mTitle;
     unsigned int mID;
 };
 
-class BookCardWidget : public QWidget, public QListWidgetItem
+class BookCardWidget : public QWidget
 {
     Q_OBJECT
 

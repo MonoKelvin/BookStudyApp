@@ -10,108 +10,6 @@
     <height>560</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Dialog</string>
-  </property>
-  <property name="styleSheet">
-   <string notr="true">#lbHeader_h2
-{
-	font-size: 18px;
-	font-weight: bold;
-	background: #fff;
-}
-#sawBookContents {
-	background-color: rgb(240, 240, 245);
-	backgrounD: #fff;
-	border-radius: 8px;
-}
-
-/* Close Button */
-#btnCloseBtn
-{
-	font-size: 22px;
-	background: #fff;
-	color: #888;
-}
-#btnCloseBtn::hover
-{
-	color: #fff;
-	background:rgb(224,227,241);
-}
-#btnCloseBtn::pressed
-{
-	color: #fff;
-	background:rgb(187,200,228);
-}
-
-
-/* Label */
-#lbRatingPgsBar_dtl
-{
-	min-width: 24px;
-	min-height:140px;
-}
-#BookDetailWidget #lbImage
-{
-	max-width: 200px;
-	max-height: 260px;
-}
-#BookDetailWidget #lbBookTitle
-{
-	font-size: 18px;
-	font-weight: bold;
-	max-height: 36px;
-}
-
-#lbRemaining_h2
-{
-	font-size: 16px;
-	font-weight: bold;
-	min-height: 30px;
-	background: #ffa428;
-	border-radius: 15px;
-	min-width: 120px;
-	color: #fff;
-}
-
-#lbOtherInfo_h2,
-#lbSummary_h2,
-#lbTranslator_h2,
-#lbTags_h2,
-#lbOriginTitle_h2,
-#lbAuthorIntro_h2,
-#lbCatalog_h2,
-#lbBinding_h2,
-#lbBookDetail_h2
-{
-	font-size: 18px;
-	font-weight: bold;
-	min-height: 36px;
-	color: #888;
-}
-
-#lbRating_h2
-{
-	font-size: 18px;
-	font-weight: bold;
-	min-height: 36px;
-	color: #ffa428;
-}
-
-#BookDetailWidget #lbSummary,
-#BookDetailWidget #lbTranslator,
-#BookDetailWidget #lbTags,
-#BookDetailWidget #lbOriginTitle,
-#BookDetailWidget #lbAuthorIntro,
-#BookDetailWidget #lbCatalog,
-#BookDetailWidget #lbBinding,
-#BookDetailWidget #lbRating
-{
-	padding-left: 20px;
-}
-
-</string>
-  </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
     <number>30</number>
@@ -139,7 +37,7 @@
         <x>0</x>
         <y>0</y>
         <width>784</width>
-        <height>936</height>
+        <height>726</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_4">
@@ -189,18 +87,6 @@
          </property>
          <item>
           <widget class="QLabel" name="lbImage">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>200</width>
-             <height>260</height>
-            </size>
-           </property>
            <property name="text">
             <string/>
            </property>
@@ -320,7 +206,7 @@
             <number>10</number>
            </property>
            <item row="2" column="1">
-            <widget class="QProgressBar" name="lbRatingPgsBar_dtl">
+            <widget class="QProgressBar" name="lbRatingPgsBar">
              <property name="value">
               <number>24</number>
              </property>

@@ -33,7 +33,13 @@
 	color: rgb(30,40,70);
 	background-color: rgb(240, 240, 245);
 	outline: none;
-	border:none;
+	border: none;
+}
+
+/* Label */
+QLabel
+{
+	background:transparent;
 }
 
 /* ToolTip */
@@ -45,109 +51,7 @@ QToolTip {
     opacity: 150;
 }
 
-/* Menu */ 
-QMenu{
-	background-color: #fff;
-	padding-top: 8px;
-	padding-bottom: 8px;
-}
-QMenu::item{
-	padding: 5px 10px 5px 25px;
-	border-left: 10px solid transparent;
-}
-QMenu::item:selected{
-	color: #fff;
-	background-color: #5576be;
-}
-QMenu::item:pressed{
-	background-color: #445e97;
-}
-QMenu::separator{
-    height: 1px;
-    background: #eee;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-QMenu:disabled{
-	color:  rgba(50,50,80,80);
-}
-
-/* Widget */
-#navMenuWidget , #toolBarWidget, #headerWidget
-{
-	background: #fff;
-}
-
-/* ProgressBar */
-QProgressBar
-{
-    color: transparent;
-}
-QProgressBar::chunk {
-    background-color: #ffa428;
-}
-#pbRating_lib
-{
-    max-height: 4px;
-}
-
-
-/* Label */
-QLabel
-{
-	background:transparent;
-}
-#lbHeaderName
-{
-	font-size: 20px;
-	font-weight: bold;
-	padding-left: 10px;
-}
-#lbCategoryName
-{
-	min-height: 20px;
-	font-size: 20px;
-	font-weight: bold;
-}
-#lbBookCount
-{
-	min-height: 16px;
-	font-size: 16px;
-	color: rgb(180,180,180);
-}
-#lbNickName
-{
-	font-weight: bold;
-}
-#lbUserNickName
-{
-	font-size: 20px;
-	font-weight: bold;
-	padding-left: 10px;
-}
-
-/**************************************************/
-/* 					Library 				      */
-/**************************************************/
-
-/* Label */
-#lwLentBooksView,
-#lbBookTitle_lib
-{
-	font-size: 18px;
-	font-weight: bold;
-}
-#lbAuPubTime_lib,
-#lbSummary_lib
-{
-	color: #888;
-}
-#lbRating_lib
-{
-	color: #ffa428
-}
-
-/* QListView */
+/* List View */
 QListView::item
 {
 	background-color: rgb(255, 255, 255);
@@ -175,35 +79,190 @@ QListView::item:hover {
 	padding: 8px;
     border: 2px solid rgb(224,227,241);
 }
-#lwLentBooksView::item
-{
-	color: rgb(30,40,70);
-	max-width: 130px;
-	max-height: 220px;
+
+/* Menu */
+QMenu{
+	background-color: #fff;
+	padding-top: 8px;
+	padding-bottom: 8px;
 }
-#lwLibraryView::item
-{
-	width: 480px;
-	height: 180px;
+QMenu::item{
+	padding: 5px 10px 5px 25px;
+	border-left: 10px solid transparent;
+}
+QMenu::item:selected{
+	color: #fff;
+	background-color: #5576be;
+}
+QMenu::item:pressed{
+	background-color: #445e97;
+}
+QMenu::separator{
+    height: 1px;
+    background: #eee;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+QMenu:disabled{
+	color:  rgba(50,50,80,80);
 }
 
 /* LineEdit */
-
 QLineEdit
 {
 	height: 40px;
 	padding: 0px 20px;
 	border-radius: 20px;
 	background: white;
-    /*border: 1px solid rgb(220, 220, 220);*/
 }
 /*QLineEdit::hover
 {
 	border: 1px solid rgb(85,118,189);;
 }*/
 
-/* PushButton */
+/* ScrollBar  */
+QScrollBar:vertical
+{
+    background: white;
+    width: 10px;
+}
+QScrollBar::handle:vertical
+{
+    background: rgb(224,227,241);
+    min-height: 10px;
+}
+QScrollBar::handle:hover
+{
+	background: rgb(187,200,228);
+}
+QScrollBar::add-line:vertical
+{
+    height: 0;
+}
+QScrollBar::sub-line:vertical
+{
+    height: 0;
+}
 
+QScrollBar:horizontal
+{
+    background: white;
+    height: 10px;
+}
+QScrollBar::handle:horizontal
+{
+    background: rgb(224,227,241);
+    min-width: 10px;
+}
+QScrollBar::horizontal:hover
+{
+	background: rgb(187,200,228);
+}
+QScrollBar::add-line:horizontal
+{
+    width: 0;
+}
+QScrollBar::sub-line:horizontal
+{
+    width: 0;
+}
+
+/* Widget */
+#navMenuWidget , #toolBarWidget, #headerWidget
+{
+	background: #fff;
+}
+
+/**************************************************/
+/* 				     Progress Bar                 */
+/**************************************************/
+QProgressBar
+{
+    color: transparent;
+}
+QProgressBar::chunk {
+    background-color: #ffa428;
+}
+
+/**************************************************/
+/* 				    Header Navigation             */
+/**************************************************/
+#lbHeaderName
+{
+	font-size: 20px;
+	font-weight: bold;
+	padding-left: 10px;
+}
+
+/**************************************************/
+/* 				      User Info                   */
+/**************************************************/
+#lbUserNickName
+{
+	font-size: 20px;
+	font-weight: bold;
+	padding-left: 10px;
+}
+
+/**************************************************/
+/* 				        Book Info                 */
+/**************************************************/
+#lbBookTitle
+{
+	font-size: 18px;
+	font-weight: bold;
+	color: rgb(30,40,70);
+    min-height: 30px;
+}
+
+/**************************************************/
+/* 				   Book Shelf Style               */
+/**************************************************/
+SimpleBookWidget,
+#lwLentBooksView::item
+{
+	width: 150px;
+	height: 240px;
+}
+SimpleBookWidget #lbImage
+{
+    width: 130px;
+    height: 180px;
+}
+
+/**************************************************/
+/* 			         Book Card Style              */
+/**************************************************/
+
+BookCardWidget #lbAuPubTime,
+BookCardWidget #lbSummary
+{
+	color: #888;
+}
+BookCardWidget #lbRating
+{
+	color: #ffa428
+}
+BookCardWidget #pbRating
+{
+    max-height: 4px;
+}
+BookCardWidget #lbImage
+{
+    padding: 0px;
+    max-width: 130px;
+    max-height: 180px;
+}
+BookCardWidget,
+#lwLibraryView::item
+{
+	width: 480px;
+	height: 180px;
+}
+
+/**************************************************/
+/* 			       PushButton Style               */
+/**************************************************/
 #btnLoadMore,
 #btnLogout
 {
@@ -217,9 +276,26 @@ QLineEdit
 {
 	background-color: rgb(68,94,151);
 }
+#btnClose
+{
+	font-size: 22px;
+	background: #fff;
+	color: #888;
+}
+#btnClose::hover
+{
+	color: #fff;
+	background:rgb(224,227,241);
+}
+#btnClose::pressed
+{
+	color: #fff;
+	background:rgb(187,200,228);
+}
 
-/* Navgation Bar Menus */
-
+/**************************************************/
+/* 			      Navgation Bar Menus             */
+/**************************************************/
 #btnBookShelf,
 #btnBookGarden,
 #btnSetting
@@ -245,55 +321,82 @@ QLineEdit
 	background-color: rgb(210,226,255);
 }
 
-
-/* ScrollBar  */
-
-QScrollBar:vertical
+/**************************************************/
+/* 			  Book Detail Widget Style            */
+/**************************************************/
+BookDetailWidget #lbHeader_h2
 {
-    background: white;
-    width: 10px;
+	font-size: 18px;
+	font-weight: bold;
+	background: #fff;
 }
-QScrollBar::handle:vertical
-{
-    background: rgb(224,227,241);
-    min-height: 10px;
-}
-QScrollBar::handle:hover
-{
-	background: rgb(187,200,228);
-}
-QScrollBar::add-line:vertical
-{
-    height: 0;
-}
-QScrollBar::sub-line:vertical
-{
-    height: 0;
+BookDetailWidget #sawBookContents {
+	background-color: rgb(240, 240, 245);
+	backgrounD: #fff;
+	border-radius: 8px;
 }
 
-
-QScrollBar:horizontal
+BookDetailWidget #lbRatingPgsBar
 {
-    background: white;
-    height: 10px;
+	min-width: 24px;
+	min-height:140px;
 }
-QScrollBar::handle:horizontal
+BookDetailWidget #lbImage
 {
-    background: rgb(224,227,241);
-    min-width: 10px;
+	max-width: 200px;
+	max-height: 260px;
 }
-QScrollBar::horizontal:hover
+BookDetailWidget #lbBookTitle
 {
-	background: rgb(187,200,228);
+	font-size: 18px;
+	font-weight: bold;
+	max-height: 36px;
 }
-QScrollBar::add-line:horizontal
+BookDetailWidget #lbRemaining_h2
 {
-    width: 0;
+	font-size: 16px;
+	font-weight: bold;
+	min-height: 30px;
+	background: #ffa428;
+	border-radius: 15px;
+	min-width: 120px;
+	color: #fff;
 }
-QScrollBar::sub-line:horizontal
+BookDetailWidget #lbOtherInfo_h2,
+BookDetailWidget #lbSummary_h2,
+BookDetailWidget #lbTranslator_h2,
+BookDetailWidget #lbTags_h2,
+BookDetailWidget #lbOriginTitle_h2,
+BookDetailWidget #lbAuthorIntro_h2,
+BookDetailWidget #lbCatalog_h2,
+BookDetailWidget #lbBinding_h2,
+BookDetailWidget #lbBookDetail_h2
 {
-    width: 0;
-}</string>
+	font-size: 18px;
+	font-weight: bold;
+	min-height: 36px;
+	color: #888;
+}
+BookDetailWidget #lbRating_h2
+{
+	font-size: 18px;
+	font-weight: bold;
+	min-height: 36px;
+	color: #ffa428;
+}
+BookDetailWidget #lbSummary,
+BookDetailWidget #lbTranslator,
+BookDetailWidget #lbTags,
+BookDetailWidget #lbOriginTitle,
+BookDetailWidget #lbAuthorIntro,
+BookDetailWidget #lbCatalog,
+BookDetailWidget #lbBinding,
+BookDetailWidget #lbRating
+{
+	color: rgb(30,40,70);
+	padding-left: 20px;
+}
+</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
@@ -528,12 +631,6 @@ QScrollBar::sub-line:horizontal
          <property name="editTriggers">
           <set>QAbstractItemView::NoEditTriggers</set>
          </property>
-         <property name="iconSize">
-          <size>
-           <width>130</width>
-           <height>180</height>
-          </size>
-         </property>
          <property name="verticalScrollMode">
           <enum>QAbstractItemView::ScrollPerPixel</enum>
          </property>
@@ -551,9 +648,6 @@ QScrollBar::sub-line:horizontal
          </property>
          <property name="viewMode">
           <enum>QListView::IconMode</enum>
-         </property>
-         <property name="sortingEnabled">
-          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -608,9 +702,6 @@ QScrollBar::sub-line:horizontal
          </property>
          <property name="movement">
           <enum>QListView::Static</enum>
-         </property>
-         <property name="flow">
-          <enum>QListView::LeftToRight</enum>
          </property>
          <property name="resizeMode">
           <enum>QListView::Adjust</enum>
