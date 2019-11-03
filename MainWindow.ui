@@ -472,7 +472,7 @@
         <item>
          <widget class="QLabel" name="lbHeaderName">
           <property name="text">
-           <string>MonoKelvin</string>
+           <string>我的书架</string>
           </property>
          </widget>
         </item>

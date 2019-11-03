@@ -31,6 +31,7 @@ SOURCES += \
         LoginDialog.cpp \
         Model/BookModel.cpp \
         Model/UserModel.cpp \
+        Utility/AttachHeader.cpp \
         Utility/Singleton.cpp \
         Utility/Utility.cpp \
         Widgets/AvatarWidget.cpp \
@@ -51,6 +52,7 @@ HEADERS += \
         MainWindow.h \
         Model/BookModel.h \
         Model/UserModel.h \
+        Utility/AttachHeader.h \
         Utility/BookStudyAPI.h \
         Utility/Singleton.h \
         Utility/Utility.h \

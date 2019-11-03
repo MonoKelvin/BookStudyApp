@@ -12,12 +12,12 @@
 #include "LoginDialog.h"
 
 #include <QDir>
-#include <QDebug>
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QCloseEvent>
 #include <QScrollBar>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
@@ -48,10 +48,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     initUserInfo();
     connections();
+    ui->btnSetting->setHidden(true);
 }
 
 MainWindow::~MainWindow()
 {
+    destroyUser();
+
     delete ui;
 }
 
@@ -173,6 +176,20 @@ void MainWindow::initUserInfo()
     }
 }
 
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    auto result = QMessageBox::information(nullptr,
+                                           "提示",
+                                           "你确定要退出吗？",
+                                           QMessageBox::Yes | QMessageBox::No,
+                                           QMessageBox::No);
+    if (result == QMessageBox::Yes) {
+        event->accept();
+    } else {
+        event->ignore();
+    }
+}
+
 void MainWindow::logout()
 {
     HttpRequest *request = new HttpRequest;
@@ -180,16 +197,13 @@ void MainWindow::logout()
     // 目前只实现提供id告诉服务器该用户登出了。
     QString postData = QString("type=logout&id=%1").arg(mUser->id());
     request->sendRequest(UserLogInOut, HttpRequest::HttpRequestType::POST, postData);
-    connect(request, &HttpRequest::request, [=](bool success, const QByteArray &jsonData) {
-        // TODO: 下一个版本加入登录日志，记录登录登出日志，方便维护
-        Q_UNUSED(success);
-        Q_UNUSED(jsonData);
-    });
+//    // TODO: 下一个版本加入登录日志，记录登录登出日志，方便维护
+//    connect(request, &HttpRequest::request, [=](bool success, const QByteArray &jsonData) {
+//        Q_UNUSED(success);
+//        Q_UNUSED(jsonData);
+//    });
 
-    if (!mUser.isNull()) {
-        mUser.clear();
-        mUser = nullptr;
-    }
+    destroyUser();
 
     ui->lwLentBooksView->clearBooks();
     ui->lbNickName->setText("点击登录");

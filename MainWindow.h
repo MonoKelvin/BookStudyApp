@@ -8,7 +8,6 @@ class MainWindow;
 }
 
 class UserModel;
-class HttpRequest;
 class QButtonGroup;
 
 class MainWindow : public QWidget
@@ -23,7 +22,15 @@ private:
     void connections(void);
     bool isLogedin(void);
     void initUserInfo(void);
-//    void getCategories(void);
+
+    inline void destroyUser(void) {
+        if (!mUser.isNull()) {
+            mUser.clear();
+            mUser = nullptr;
+        }
+    }
+
+    void closeEvent(QCloseEvent *event) override;
 
 private slots:
     void logout();
