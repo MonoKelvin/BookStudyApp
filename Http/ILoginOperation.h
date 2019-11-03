@@ -15,7 +15,12 @@ public:
         :QObject(parent)
     {}
 
-    virtual ~ILoginOperation() {}
+    virtual ~ILoginOperation() {
+        if (!mUser.isNull()) {
+            mUser.clear();
+            mUser = nullptr;
+        }
+    }
 
     /* 发起网络请求，验证是否登录成功
      * @param mapping : 验证的数据键值对
@@ -51,19 +56,9 @@ protected:
      */
     virtual UserModel *parse(const QString &jsonData) = 0;
 
-public slots:
-    /** 登出方法，即注销当前的登录
-     * @param mapping : 注销时提供的数据，一般为用户id号，以通知服务器某个用户登出了
-     * @note 另外参数中还可以包括登出时要发送给服务器的数据，比如留言、状态等
-     */
-    virtual void logout() = 0;
-
 signals:
     // 信号：成功登录，
     void logedin();
-
-    // 信号：登出信号，一般不进行成功验证，返回登出时提供的相关数据
-    void logedout();
 
     // 信号：成功注册账号
     void registered();

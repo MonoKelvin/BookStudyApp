@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     loginPage->deleteLater();
     loginPage = nullptr;
 
-    mainWindow.showMaximized();
+//    mainWindow.showMaximized();
 
     return a.exec();
 }

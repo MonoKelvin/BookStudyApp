@@ -15,9 +15,12 @@ public:
     explicit UserPageWidget(QWidget *parent = nullptr);
     ~UserPageWidget();
 
-    void setAvator(const QPixmap& pixmap);
+    void setAvatar(const QPixmap& pixmap);
 
     void setName(const QString &name);
+
+signals:
+    void logout();
 
 private:
     Ui::UserPageWidget *ui;

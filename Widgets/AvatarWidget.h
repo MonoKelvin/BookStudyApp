@@ -17,7 +17,7 @@ public:
 
     inline void setDefaultAvatar()
     {
-        mAvator = QPixmap("qrc:/Icon/AppIcons/default_avatar.png");
+        mAvator = QPixmap(":/Icon/AppIcons/default_avatar.png");
         update();
     }
 

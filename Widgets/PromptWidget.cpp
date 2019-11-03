@@ -6,21 +6,17 @@
 #include <QPropertyAnimation>
 #include <QSequentialAnimationGroup>
 
-
 PromptWidget::PromptWidget(const QString &prompt, QWidget *parent)
     : QWidget(parent)
 {
-    QLabel *lbContents = new QLabel(prompt, this);
-    QHBoxLayout *hbLayout = new QHBoxLayout(this);
+    buildUI(prompt);
+}
 
-    QFontMetrics font(lbContents->font());
-    lbContents->setAlignment(Qt::AlignCenter);
-    lbContents->setWordWrap(true);
-
-    hbLayout->addWidget(lbContents);
-    hbLayout->setMargin(10);
-
-    this->resize(100 + font.horizontalAdvance(prompt), font.height() + 50);
+PromptWidget::PromptWidget(const QString &prompt, QWidget *parent, PromptWidget::PromptType type)
+    : QWidget (parent)
+{
+    buildUI(prompt);
+    show(type);
 }
 
 void PromptWidget::show(PromptWidget::PromptType type)
@@ -60,4 +56,19 @@ void PromptWidget::show(PromptWidget::PromptType type)
     seqAnimation->start();
     connect(seqAnimation, &QSequentialAnimationGroup::finished, this, &PromptWidget::deleteLater);
     QWidget::show();
+}
+
+void PromptWidget::buildUI(const QString &prompt)
+{
+    QLabel *lbContents = new QLabel(prompt, this);
+    QHBoxLayout *hbLayout = new QHBoxLayout(this);
+
+    QFontMetrics font(lbContents->font());
+    lbContents->setAlignment(Qt::AlignCenter);
+    lbContents->setWordWrap(true);
+
+    hbLayout->addWidget(lbContents);
+    hbLayout->setMargin(10);
+
+    this->resize(100 + font.horizontalAdvance(prompt), font.height() + 50);
 }

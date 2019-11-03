@@ -4,10 +4,12 @@
 #include "Utility/BookStudyAPI.h"
 #include "Widgets/PromptWidget.h"
 
-#include <QMap>
+#include <QDebug>
 #include <QJsonParseError>
 #include <QJsonObject>
 #include <QJsonArray>
+
+QSharedPointer<UserModel> ILoginOperation::mUser = nullptr;
 
 LoginWithQQMail::LoginWithQQMail(QObject *parent)
     : ILoginOperation(parent)
@@ -44,12 +46,16 @@ void LoginWithQQMail::verify(const QMap<QString, QString> &mapping)
     QString postData = "type=login&account=" + mapping["account"] + "&password=" + mapping["password"];
     request->sendRequest(UserLogInOut, HttpRequest::HttpRequestType::POST, postData);
 
-    connect(request, &HttpRequest::request, [=](bool success, const QByteArray &data) {
+    connect(request, &HttpRequest::request, [=](bool success, const QByteArray &jsonData) {
         if (success) {
-            mUser = QSharedPointer<UserModel>(parse(QString(data)));
+            mUser = QSharedPointer<UserModel>(parse(QString(jsonData)));
             emit logedin();
         } else {
-            emit failed("登陆失败，请检查账号或密码的正确！");
+            QJsonParseError jsonError;
+            QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData, &jsonError);
+            if (jsonError.error == QJsonParseError::NoError && jsonDoc.isObject()) {
+                emit failed(jsonDoc.object().value("msg").toString());
+            }
         }
     });
 }
@@ -75,27 +81,4 @@ void LoginWithQQMail::signup(const QMap<QString, QString> &mapping)
             emit failed("注册信息不完整！");
         }
     });
-}
-
-void LoginWithQQMail::logout()
-{
-    HttpRequest *request = new HttpRequest;
-
-    // 目前只实现提供id告诉服务器该用户登出了。
-    QString postData = QString("type=logout&id=%1").arg(mUser->id());
-    request->sendRequest(UserLogInOut, HttpRequest::HttpRequestType::POST, postData);
-
-    connect(request, &HttpRequest::request, [=](bool success, const QByteArray &jsonData) {
-        // TODO: 下一个版本加入登录日志，记录登录登出日志，方便维护
-        Q_UNUSED(success);
-        Q_UNUSED(jsonData);
-
-        // 不管登出失败不失败都发送登出信号
-        emit logedout();
-    });
-
-    if (!mUser.isNull()) {
-        mUser.clear();
-        mUser = nullptr;
-    }
 }

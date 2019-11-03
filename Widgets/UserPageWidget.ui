@@ -78,7 +78,7 @@
          <number>30</number>
         </property>
         <item>
-         <widget class="AvatorWidget" name="lbUserAvator">
+         <widget class="AvatarWidget" name="lbUserAvatar">
           <property name="minimumSize">
            <size>
             <width>100</width>
@@ -157,9 +157,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>AvatorWidget</class>
+   <class>AvatarWidget</class>
    <extends>QLabel</extends>
-   <header location="global">Widgets/AvatorWidget.h</header>
+   <header location="global">Widgets/AvatarWidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

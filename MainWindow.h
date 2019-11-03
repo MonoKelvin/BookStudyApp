@@ -25,6 +25,9 @@ private:
     void initUserInfo(void);
 //    void getCategories(void);
 
+private slots:
+    void logout();
+
 private:
     Ui::MainWindow *ui;
 

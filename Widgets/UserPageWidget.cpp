@@ -30,8 +30,9 @@ UserPageWidget::UserPageWidget(QWidget *parent) :
 
     // 事件
     connect(btnClose, &QPushButton::clicked, this, &UserPageWidget::close);
-    connect(ui->btnLogout, &QPushButton::clicked, [=]{
-
+    connect(ui->btnLogout, &QPushButton::clicked, [=] {
+        emit logout();
+        this->accept();
     });
 
     // 设置美化特效
@@ -45,10 +46,10 @@ UserPageWidget::~UserPageWidget()
     delete ui;
 }
 
-void UserPageWidget::setAvator(const QPixmap& pixmap)
+void UserPageWidget::setAvatar(const QPixmap& pixmap)
 {
-    ui->lbUserAvator->setAvatar(pixmap);
-    ui->lbUserAvator->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+    ui->lbUserAvatar->setAvatar(pixmap);
+    ui->lbUserAvatar->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 }
 
 void UserPageWidget::setName(const QString &name)
