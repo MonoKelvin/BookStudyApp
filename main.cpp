@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     }
 
     // 主页面
-    MainWindow mainWindow(loginPage->getUser());
+    MainWindow mainWindow;
 
     // 销毁登录页
     loginPage->deleteLater();

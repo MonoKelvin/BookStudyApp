@@ -4,13 +4,13 @@
 #include "Utility/BookStudyAPI.h"
 #include "Widgets/PromptWidget.h"
 
-#include <QDebug>
+#include <QMap>
 #include <QJsonParseError>
 #include <QJsonObject>
 #include <QJsonArray>
 
-
-LoginWithQQMail::LoginWithQQMail()
+LoginWithQQMail::LoginWithQQMail(QObject *parent)
+    : ILoginOperation(parent)
 {
 
 }
@@ -26,8 +26,8 @@ UserModel* LoginWithQQMail::parse(const QString &jsonData)
 
         user->setID(unsigned(jsonObj.value("id").toString().toInt()));
         user->setName(jsonObj.value("name").toString());
-//        user->setAccount(jsonObj.value("account").toString());
-//        user->setPassward(jsonObj.value("password").toString());
+        user->setAccount(jsonObj.value("account").toString());
+//        user->setPassword(jsonObj.value("password").toString());
         user->setAvatarUrl(jsonObj.value("avatar").toString());
         user->setMD5(jsonObj.value("md5").toString());
 
@@ -46,7 +46,8 @@ void LoginWithQQMail::verify(const QMap<QString, QString> &mapping)
 
     connect(request, &HttpRequest::request, [=](bool success, const QByteArray &data) {
         if (success) {
-            emit login(parse(QString(data)));
+            mUser = QSharedPointer<UserModel>(parse(QString(data)));
+            emit logedin();
         } else {
             emit failed("登陆失败，请检查账号或密码的正确！");
         }
@@ -74,4 +75,27 @@ void LoginWithQQMail::signup(const QMap<QString, QString> &mapping)
             emit failed("注册信息不完整！");
         }
     });
+}
+
+void LoginWithQQMail::logout()
+{
+    HttpRequest *request = new HttpRequest;
+
+    // 目前只实现提供id告诉服务器该用户登出了。
+    QString postData = QString("type=logout&id=%1").arg(mUser->id());
+    request->sendRequest(UserLogInOut, HttpRequest::HttpRequestType::POST, postData);
+
+    connect(request, &HttpRequest::request, [=](bool success, const QByteArray &jsonData) {
+        // TODO: 下一个版本加入登录日志，记录登录登出日志，方便维护
+        Q_UNUSED(success);
+        Q_UNUSED(jsonData);
+
+        // 不管登出失败不失败都发送登出信号
+        emit logedout();
+    });
+
+    if (!mUser.isNull()) {
+        mUser.clear();
+        mUser = nullptr;
+    }
 }

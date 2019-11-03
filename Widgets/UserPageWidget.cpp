@@ -2,6 +2,7 @@
 #include "ui_UserPageWidget.h"
 
 #include "Utility/Utility.h"
+#include "Http/ILoginOperation.h"
 
 UserPageWidget::UserPageWidget(QWidget *parent) :
     QDialog(parent),
@@ -27,8 +28,11 @@ UserPageWidget::UserPageWidget(QWidget *parent) :
     btnClose->setGeometry(width() - HEADER_HEIGHT - SHADOW_PADDING, SHADOW_PADDING, HEADER_HEIGHT, HEADER_HEIGHT);
     btnClose->raise();
 
-    // 关闭事件
+    // 事件
     connect(btnClose, &QPushButton::clicked, this, &UserPageWidget::close);
+    connect(ui->btnLogout, &QPushButton::clicked, [=]{
+
+    });
 
     // 设置美化特效
     setShadowEffect(this, QColor(160, 165, 170, 140), qreal(SHADOW_PADDING));

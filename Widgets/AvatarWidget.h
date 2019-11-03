@@ -1,13 +1,13 @@
-﻿#ifndef AVATORWIDGET_H
-#define AVATORWIDGET_H
+﻿#ifndef AVATARWIDGET_H
+#define AVATARWIDGET_H
 
 #include <QLabel>
 
-class AvatorWidget : public QLabel
+class AvatarWidget : public QLabel
 {
     Q_OBJECT
 public:
-    explicit AvatorWidget(QWidget *parent = nullptr);
+    explicit AvatarWidget(QWidget *parent = nullptr);
 
     inline void setAvatar(const QPixmap &pixmap)
     {
@@ -37,4 +37,4 @@ private:
     QPixmap mAvator;
 };
 
-#endif // AVATORWIDGET_H
+#endif // AVATARWIDGET_H

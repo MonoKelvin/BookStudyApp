@@ -8,7 +8,6 @@ class LoginDialog;
 }
 
 class ILoginOperation;
-class UserModel;
 
 class LoginDialog : public QDialog
 {
@@ -21,8 +20,6 @@ public:
     inline bool isExit() const { return mIsExit; }
     bool loggedIn();
 
-    inline UserModel *getUser(void) const { return mUser; }
-
 private:
     void connections(void);
 
@@ -32,14 +29,11 @@ private:
     // 当前模式是否为注册用户
     bool mIsSignUp;
 
-    // 是否退出登录或注册
+    // 是否退出登录或注册对话框
     bool mIsExit;
 
     // 登录接口类
     ILoginOperation *mLoginMethod;
-
-    // 保存用户信息
-    UserModel *mUser;
 };
 
 #endif // LOGINDIALOG_H

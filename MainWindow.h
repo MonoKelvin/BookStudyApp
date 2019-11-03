@@ -16,16 +16,13 @@ class MainWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit MainWindow(UserModel *user = nullptr, QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
 
 private:
     void connections(void);
-    bool needLoginPrompt(void);
-    void init(void);
-
-private slots:
-    void setUserBaseInfo(void);
+    bool isLogedin(void);
+    void initUserInfo(void);
 //    void getCategories(void);
 
 private:
@@ -34,7 +31,7 @@ private:
     QButtonGroup *mNavButtonGroup;
 
     // 从登录页面传递过来的用户信息
-    UserModel *mUser;
+    QSharedPointer<UserModel> mUser;
 };
 
 #endif // MAINWINDOW_H

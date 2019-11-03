@@ -1,20 +1,20 @@
-﻿#include "AvatorWidget.h"
+﻿#include "AvatarWidget.h"
 
 #include <QPainter>
 
-AvatorWidget::AvatorWidget(QWidget *parent)
+AvatarWidget::AvatarWidget(QWidget *parent)
     : QLabel(parent)
 {
     mAvator = QPixmap("qrc:/Icon/AppIcons/default_avatar.png");
 }
 
-void AvatorWidget::mousePressEvent(QMouseEvent *event)
+void AvatarWidget::mousePressEvent(QMouseEvent *event)
 {
     emit onClick();
     QWidget::mousePressEvent(event);
 }
 
-void AvatorWidget::paintEvent(QPaintEvent *event)
+void AvatarWidget::paintEvent(QPaintEvent *event)
 {
 //    Q_UNUSED(event);
 

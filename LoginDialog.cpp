@@ -18,8 +18,6 @@ LoginDialog::LoginDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    mUser = nullptr;
-
     // 左上角的诗句
     QLabel *verse = new QLabel(this);
     verse->setObjectName("lbVerse");
@@ -41,7 +39,7 @@ LoginDialog::LoginDialog(QWidget *parent) :
     ui->leNickName->setHidden(true);
 
     // 登录方式默认初始化为QQ邮箱验证登录
-    mLoginMethod = new LoginWithQQMail;
+    mLoginMethod = new LoginWithQQMail(this);
 
     // TODO: 发布时删除
     ui->leInputAccount->setText("15007083506@qq.com");
@@ -52,7 +50,6 @@ LoginDialog::LoginDialog(QWidget *parent) :
 
 LoginDialog::~LoginDialog()
 {
-    mLoginMethod->deleteLater();
     delete ui;
 }
 
@@ -74,6 +71,7 @@ bool LoginDialog::loggedIn()
         } else {
 
         }
+
         md5File.close();
     }
 
@@ -99,37 +97,38 @@ void LoginDialog::connections()
         } else {
             mLoginMethod->verify(mapping);
         }
+
         // 防止多次点击造成重复请求
         ui->btnLogin->setEnabled(false);
+        ui->btnEntryNologin->setEnabled(false);
     });
 
     // 暂不登录，直接进入应用
     connect(ui->btnEntryNologin, &QPushButton::clicked, this, &LoginDialog::accept);
 
-    // 当登录成功时，会返回一个用户信息模型
-    connect(mLoginMethod, &ILoginOperation::login, [=](UserModel *user) {
-        mUser = user;
-        if (mUser != nullptr) {
+    connect(mLoginMethod, &ILoginOperation::logedin, [=] {
+        if (ILoginOperation::getUser()) {
             this->accept();
-        } else {
-            PromptWidget *prompt = new PromptWidget("用户数据获取失败，请重新登录", this);
-            prompt->show(PromptWidget::PromptType::Alert);
         }
+
+        // 激活按钮
         ui->btnLogin->setEnabled(true);
+        ui->btnEntryNologin->setEnabled(true);
     });
 
     // 注册成功
     connect(mLoginMethod, &ILoginOperation::registered, [=] {
         ui->btnLogin->setEnabled(true);
-        PromptWidget *prompt = new PromptWidget("注册成功！", this);
-        prompt->show(PromptWidget::PromptType::Prompt);
+        ui->btnEntryNologin->setEnabled(true);
     });
 
     // 登录失败
     connect(mLoginMethod, &ILoginOperation::failed, [=](const QString& msg) {
         PromptWidget *prompt = new PromptWidget(msg, this);
         prompt->show(PromptWidget::PromptType::Alert);
+
         ui->btnLogin->setEnabled(true);
+        ui->btnEntryNologin->setEnabled(true);
     });
 
     // 点击注册按钮实现的登录、注册切换功能
@@ -153,6 +152,7 @@ void LoginDialog::connections()
             ui->lbLogin->setText("登录");
             ui->btnLogin->setText("登录");
         }
+
         ui->leRecheckPwd->clear();
         ui->leNickName->clear();
     });

@@ -5,17 +5,17 @@
 
 #include <QObject>
 #include <QString>
+#include <QSharedPointer>
 
 class ILoginOperation : public QObject
 {
     Q_OBJECT
 public:
-    virtual ~ILoginOperation() {}
+    ILoginOperation(QObject *parent = nullptr)
+        :QObject(parent)
+    {}
 
-    /* 解析登录时请求返回的json数据
-     * @return UserModel* : 解析成功返回用户对像模型，解析失败返回nullptr
-     */
-    virtual UserModel *parse(const QString &jsonData) = 0;
+    virtual ~ILoginOperation() {}
 
     /* 发起网络请求，验证是否登录成功
      * @param mapping : 验证的数据键值对
@@ -40,18 +40,40 @@ public:
      */
     virtual void forgetPassword(const QString &) {}
 
-signals:
-    // 信号：登录成功
-    void login(UserModel *user);
+    static QSharedPointer<UserModel> &getUser()
+    {
+        return mUser;
+    }
 
-    // 信号：注册账号成功
+protected:
+    /* 解析登录时请求返回的json数据
+     * @return UserModel* : 解析成功返回用户对像模型，解析失败返回nullptr
+     */
+    virtual UserModel *parse(const QString &jsonData) = 0;
+
+public slots:
+    /** 登出方法，即注销当前的登录
+     * @param mapping : 注销时提供的数据，一般为用户id号，以通知服务器某个用户登出了
+     * @note 另外参数中还可以包括登出时要发送给服务器的数据，比如留言、状态等
+     */
+    virtual void logout() = 0;
+
+signals:
+    // 信号：成功登录，
+    void logedin();
+
+    // 信号：登出信号，一般不进行成功验证，返回登出时提供的相关数据
+    void logedout();
+
+    // 信号：成功注册账号
     void registered();
 
-    // 信号：登陆或注册失败，返回失败消息
+    // 信号：登录、注册失败时发送
     void failed(const QString& message = "");
 
-    // 信号：注销
-    void logout();
+protected:
+    // 保存用户信息
+    static QSharedPointer<UserModel> mUser;
 };
 
 #endif // ILOGINOPERATION_H
